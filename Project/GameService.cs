@@ -74,7 +74,7 @@ namespace CastleGrimtol.Project
       Room D5 = new Room("D5", $"{onIsland} The water North and West {rough} {OpenSea} East and South.");
       Room E5 = new Room("E5", $"{empty} The water North {rough}, to the West {island}, and you see {openSea} to the East and South.");
       Room F5 = new Room("F5", $"{empty} To the North the water {rough}. Looking South {island}. {OpenSea} East and West.");
-      Room G5 = new Room("G5", $"{empty} The water to the North and East {rough}. Down South {island} and {openSea} to the West.");
+      Room G5 = new Room("G5", $"{empty} The water to the North and East {rough}. Further North there appears to be a ship. Down South {island} and {openSea} to the West.");
       Room A8 = new Room("A8", $"{empty} A faint glimmer catches your eye toward the East. {OpenSea} North. Both West and South {edge}");
       Room B8 = new Room("B8", $"You stumble upon a bottle floating in the middle of the sea. To the North {island} and {openSea} East and West. Looking South {edge}");
       Room C8 = new Room("C8", $"{empty} Looking East {rough2} A faint glimmer catches your eye toward the West. {OpenSea} North however over South {edge}");
@@ -95,10 +95,10 @@ namespace CastleGrimtol.Project
       Room B4 = new Room("B4", $"{inFog}"); ;
       Room C4 = new Room("C4", $"{inFog}");
       Room D4 = new Room("D4", $"{empty} To the West {fog} Down South {rough2} {OpenSea} North and East.");
-      Room E4 = new Room("E4", $"{empty} In the distance ");
-      Room F4 = new Room("F4", $"");
-      Room G4 = new Room("G4", $"");
-      Room H4 = new Room("H4", $"");
+      Room E4 = new Room("E4", $"{empty} In the distance North you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. To the South {rough2} {OpenSea} East and West.");
+      Room F4 = new Room("F4", $"To the East you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. To the South {rough2} {OpenSea} North and West.");
+      Room G4 = new Room("G4", $"The ship you have sailed upon is none other than Captain Bartholomew Roberts' Royal Fortune. Captain Bartholomew Roberts is known for his ruthless plundering and is looking at your ship with hungry eyes. To the East {island} and to the South {rough2} {OpenSea} North and West.");
+      Room H4 = new Room("H4", $"{onIsland} To the West you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. {OpenSea} North and South. Over East {edge}");
 
       F7.Exits.Add(G7);
       //add items to rooms
