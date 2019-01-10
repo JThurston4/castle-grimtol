@@ -5,16 +5,27 @@ namespace CastleGrimtol.Project.Models
 {
   public class Room : IRoom
   {
-    public string Name { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public string Description { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public List<Item> Items { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public Dictionary<string, IRoom> Exits { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public Room(string name, string description)
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public List<Item> Items { get; set; }
+    public Dictionary<string, IRoom> Exits { get; set; }
+    public bool LockedRoom { get; set; }
+    public Room(string name, string description, bool lockedroom = false)
     {
       Name = name;
       Description = description;
+      LockedRoom = lockedroom;
       Items = new List<Item>();
       Exits = new Dictionary<string, IRoom>();
+    }
+
+    public IRoom ChangeRoom(string direction)
+    {
+      IRoom room = Exits[direction];
+      if (room.LockedRoom == true)
+      {
+        System.Console.WriteLine("cant enter");
+      }
     }
   }
 }

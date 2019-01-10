@@ -1,53 +1,108 @@
 using System.Collections.Generic;
 using CastleGrimtol.Project.Interfaces;
 using CastleGrimtol.Project.Models;
+using System;
 
 namespace CastleGrimtol.Project
 {
   public class GameService : IGameService
   {
-    public IRoom CurrentRoom { get => set =>  }
-    public Player CurrentPlayer { get => set =>  }
-    IRoom IGameService.CurrentRoom { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    Player IGameService.CurrentPlayer { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+    public IRoom CurrentRoom { get; set; }
+    public Player CurrentPlayer { get; set; }
+    public bool playing { get; private set; }
+
+    public bool GoodSails { get; set; } = false;
 
     public void GetUserInput()
     {
+      System.Console.WriteLine("What is your command Captain:");
+      string input = Console.ReadLine();
+      string[] inputArr = input.Split(" ");
+      string command = inputArr[0];
+      string value = "";
+      if (inputArr.Length > 1)
+      {
+        value = inputArr[1];
+      }
+      switch (command)
+      {
+        case "look":
+          Look();
+          break;
+        case "go":
+          Go(value);
+          break;
+        case "use":
+          UseItem(value);
+          break;
+        case "quit":
+          Quit();
+          break;
+        case "take":
+          TakeItem(value);
+          break;
+        case "search":
+          searchThing(value);
+          break;
+
+        default:
+          System.Console.WriteLine("I think you might have had too much rum");
+          break;
+      }
 
     }
 
     public void Go(string direction)
     {
+      Console.Clear();
+      CurrentRoom = CurrentRoom.ChangeRoom(direction);
 
     }
 
     public void Help()
     {
-
+      System.Console.WriteLine(@"List of commands:
+        inventory: displays the items in your inventory.
+        look: gives you a description of your surroundings.
+        take + 'item': takes an item if one is available at your location.
+        use + 'item': attempts use an item in your inventory.
+        reset: starts the game over.
+        quit: stops the game entirely.");
     }
 
     public void Inventory()
     {
-
+      Console.WriteLine("Your Inventory contains: ");
+      foreach (Item item in CurrentPlayer.Inventory)
+      {
+        System.Console.WriteLine(item.Name);
+      }
     }
 
     public void Look()
     {
+      Console.WriteLine(CurrentRoom.Description);
 
+      // print items in room
     }
 
     public void Quit()
     {
-
+      playing = false;
     }
 
     public void Reset()
     {
-
+      Console.Clear();
+      GameService gameService = new GameService();
+      gameService.Setup();
+      gameService.StartGame();
     }
 
     public void Setup()
     {
+      #region //Create rooms
       string empty = "The water seems calm, not much here.";
       string rough = "seems extremely rough, caution is required";
       string rough2 = "the waters seem extremely rough but would pose no threat to you and your skilled crew.";
@@ -63,7 +118,7 @@ namespace CastleGrimtol.Project
       Room G7 = new Room("G7", $"{empty} To the North you see a small island, the water to the east {rough}, {openSea} south and west.");
       Room E7 = new Room("E7", $"{empty} You see a ship to the West with a ragged looking green skull on it's sails.  To the South you see a small island, {openSea} North and East.");
       Room F8 = new Room("F8", $"{empty} To the South {edge} To the West {island}, {openSea} to the North and East.");
-      Room F6 = new Room("F6", $"You see a barrell floating in the ocean, to the East {island}. {OpenSea} North, West, and South.");
+      Room F6 = new Room("F6", $"You see a barrell floating in the ocean, inside are weapons for your crew! Would you like to take the weapons? To the East {island}. {OpenSea} North, West, and South.");
       Room D7 = new Room("D7", $"You come face to face with the infamous Flying Dutchmen!  This ghostly crew doesnt look to happy to see you. To the West the water {rough}. {OpenSea} North, East and South.");
       Room D8 = new Room("D8", $"{empty} You see a ship to the North with a ragged looking green skull on it's sails.  To the East {island}.  The water to the West {rough}. When you look South {edge}");
       Room E8 = new Room("E8", $"{onIsland} {OpenSea} North, East, and West.  When you look South {edge}");
@@ -76,7 +131,7 @@ namespace CastleGrimtol.Project
       Room F5 = new Room("F5", $"{empty} To the North the water {rough}. Looking South {island}. {OpenSea} East and West.");
       Room G5 = new Room("G5", $"{empty} The water to the North and East {rough}. Further North there appears to be a ship. Down South {island} and {openSea} to the West.");
       Room A8 = new Room("A8", $"{empty} A faint glimmer catches your eye toward the East. {OpenSea} North. Both West and South {edge}");
-      Room B8 = new Room("B8", $"You stumble upon a bottle floating in the middle of the sea. To the North {island} and {openSea} East and West. Looking South {edge}");
+      Room B8 = new Room("B8", $"You stumble upon a bottle floating in the middle of the sea. Inside you is a map. To the North {island} and {openSea} East and West. Looking South {edge}");
       Room C8 = new Room("C8", $"{empty} Looking East {rough2} A faint glimmer catches your eye toward the West. {OpenSea} North however over South {edge}");
       Room H8 = new Room("H8", $"{empty} To the North {island} and to the West {rough2}. Towards East and South {edge}");
       Room A7 = new Room("A7", $"{empty} You can faintly see a pirate ship over North. Upon closer inspection it the sails appear to be yellow with a smiling Jolly Roger. To the East {island} and {openSea} South. Looking West {edge}");
@@ -91,9 +146,9 @@ namespace CastleGrimtol.Project
       Room B5 = new Room("B5", $"{empty} To the North {fog} Looking West {island} and {openSea} East and South.");
       Room C5 = new Room("C5", $"{empty} Looking South you see bizarre creatures bobbing at the water. Towards the East {rough2} {OpenSea} North and West.");
       Room H5 = new Room("H5", $"{empty} A massive warship looms South, its sails are black with a laughing Jolly Roger. Etched on its side you read the words 'Queen Anne's Revenge'. The sheer sight of it fills you with dread. To the North {island}. Towards the West {rough2} Looking East {edge}");
-      Room A4 = new Room("A4", $"{inFog}");
-      Room B4 = new Room("B4", $"{inFog}"); ;
-      Room C4 = new Room("C4", $"{inFog}");
+      Room A4 = new Room("A4", $"{inFog}", true);
+      Room B4 = new Room("B4", $"{inFog}", true); ;
+      Room C4 = new Room("C4", $"{inFog}", true);
       Room D4 = new Room("D4", $"{empty} To the West {fog} Down South {rough2} {OpenSea} North and East.");
       Room E4 = new Room("E4", $"{empty} In the distance North you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. To the South {rough2} {OpenSea} East and West.");
       Room F4 = new Room("F4", $"To the East you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. To the South {rough2} {OpenSea} North and West.");
@@ -101,7 +156,7 @@ namespace CastleGrimtol.Project
       Room H4 = new Room("H4", $"{onIsland} To the West you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. {OpenSea} North and South. Over East {edge}");
       Room A3 = new Room("A3", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
       Room B3 = new Room("B3", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
-      Room C3 = new Room("C3", $"{inFog} Through the thick fog you notice a small island is right next to you with what looks like someone waving at you.   ");
+      Room C3 = new Room("C3", $"{inFog} Through the thick fog you notice a small island is right next to you with what looks like someone waving at you.", true);
       Room D3 = new Room("D3", $"{empty} In the distance East you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. To the West {fog} {OpenSea} North and South");
       Room E3 = new Room("E3", $"You've sailed upon the pirate ship Fancy! Its Captain Henry Avery loves the finer things in life and while The Drowning Whale is nothing to brag about you and your crew would fetch a nice price as slaves. You are surrounded by open sea.");
       Room F3 = new Room("F3", $"{empty} To the North you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. In the distance West you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. {OpenSea} East and South.");
@@ -109,25 +164,26 @@ namespace CastleGrimtol.Project
       Room H3 = new Room("H3", $"{empty} A sinister looking pirate ship suddenly appears to the North. Its red sails and scowling Roger send shivers down your spine. To the South {island} and {openSea} West. Looking East {edge}");
       Room A2 = new Room("A2", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
       Room B2 = new Room("B2", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
-      Room C2 = new Room("C2", $"{inFog}");
+      Room C2 = new Room("C2", $"{inFog}", true);
       Room D2 = new Room("D2", $"{empty} To the North {island} and to the West {fog} {OpenSea} East and South.");
       Room E2 = new Room("E2", $"{empty} To the East you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. In the distance South you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. {OpenSea} North and West.");
       Room F2 = new Room("F2", $"You have sailed upon some enchanting creatures and as you draw near they begin swimming towards your ship. You gaze wonderously at these elegant beings, their upper body a beautiful woman and lower a fish-like tail. Nothing but openseas surrounds you.");
       Room G2 = new Room("G2", $"{empty} A sinister looking pirate ship suddenly appears to the East. Its red sails and scowling Roger send shivers down your spine. To the West you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. To the North you see a lonesome barrell floating in the water. {OpenSea} South.");
       Room H2 = new Room("H2", $"You've decided to sail straight towards the Adventure Galley and as Captain Kidd stares you down you begin to think this might be a bad idea. Very few people have the chance to meet Captain Kidd and even fewer make it out alive. {OpenSea} North, South, and West. Looking East {edge}");
-      Room A1 = new Room("A1", $"While sailing through the thick fog you almost run directly into an island that shot up out of no where. There looks to be some crates on the island.");
+      Room A1 = new Room("A1", $"While sailing through the thick fog you almost run directly into an island that shot up out of no where. There looks to be some crates on the island. You crack open a crate and find none other than Hollow Point Cannonballs!");
       Room B1 = new Room("B1", $"{inFog}");
-      Room C1 = new Room("C1", $"{inFog}");
+      Room C1 = new Room("C1", $"{inFog}", true);
       Room D1 = new Room("D1", $"{onIsland} To the West {fog} {OpenSea} East and South. Up North {edge}");
       Room E1 = new Room("E1", $"{empty} To the West {island}, {openSea} East and South, and up North {edge}");
       Room F1 = new Room("F1", $"{empty} To the South you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. To the East you see a lonesome barrell floating in the water. {OpenSea} West and up North {edge}");
-      Room G1 = new Room("G1", $"You've come upon a barrell floating at sea. {OpenSea} East, West, and South. Up north {edge}");
+      Room G1 = new Room("G1", $"You've come upon a barrell floating at sea, inside are some strange spectacles. {OpenSea} East, West, and South. Up north {edge}");
       Room H1 = new Room("H1", $"{empty} A sinister looking pirate ship suddenly appears to the South. Its red sails and scowling Roger send shivers down your spine. To the West you see a lonesome barrell floating in the water. To the North and East {edge}");
       Room Edge1 = new Room("Edge1", "You decide to test your curiousity and sail full speed where the water drops. As you clear the steep angle your ship loses all control and gets hurdled downward. You quickly grab a nearby rope temporarily securing you to The Drowning Whale. Looking around you see members of your crew flying through the air, some screaming and others silent. Glancing up and find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.");
       Room Edge2 = new Room("Edge2", "You continue to sail through the blinding fog hoping to find some long lost treasure when suddenly you see a few members of your crew floating through the air, what an odd sight! Instantly the fog clears and the realization dawns that through your foolhardiness you've sailed past the edge of the world. Glancing up and find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.");
-
+      #endregion
       //creating exits
       //Row 8
+      #region //Room Relationships
       A8.Exits.Add("north", A7);
       A8.Exits.Add("east", B8);
       A8.Exits.Add("west", Edge1);
@@ -427,20 +483,27 @@ namespace CastleGrimtol.Project
       H1.Exits.Add("east", Edge1);
       H1.Exits.Add("west", G1);
       H1.Exits.Add("south", H2);
+      #endregion
 
-
-      F7.Exits.Add(G7);
       //add items to rooms
-      //add rooms to room's exits
+      //add rooms to room's exits done
+      CurrentRoom = F7;
+      //default player
+      CurrentPlayer = new Player();
+
+
+      //game intro
+      System.Console.WriteLine("Ahoy Captain! Looks like you passed out after drinking to much rum again! You're not the only one though, none of the crew know where we wound up after the feast last night. These waters seem dangerous but I bet they're full of treasure! Lets look around and see where we should go.");
+      Look();
     }
 
     public void StartGame()
     {
-      //Setup()
-      //while(playing)
-      //draw room description
-      //GetUserInput()
-      //...
+      playing = true;
+      while (playing)
+      {
+        GetUserInput();
+      }
     }
 
     public void TakeItem(string itemName)
@@ -448,6 +511,10 @@ namespace CastleGrimtol.Project
 
     }
 
+    public void searchThing(string searchName)
+    {
+
+    }
     public void UseItem(string itemName)
     {
 
