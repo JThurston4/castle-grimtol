@@ -126,6 +126,309 @@ namespace CastleGrimtol.Project
       Room Edge1 = new Room("Edge1", "You decide to test your curiousity and sail full speed where the water drops. As you clear the steep angle your ship loses all control and gets hurdled downward. You quickly grab a nearby rope temporarily securing you to The Drowning Whale. Looking around you see members of your crew flying through the air, some screaming and others silent. Glancing up and find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.");
       Room Edge2 = new Room("Edge2", "You continue to sail through the blinding fog hoping to find some long lost treasure when suddenly you see a few members of your crew floating through the air, what an odd sight! Instantly the fog clears and the realization dawns that through your foolhardiness you've sailed past the edge of the world. Glancing up and find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.");
 
+      //creating exits
+      //Row 8
+      A8.Exits.Add("north", A7);
+      A8.Exits.Add("east", B8);
+      A8.Exits.Add("west", Edge1);
+      A8.Exits.Add("south", Edge1);
+
+      B8.Exits.Add("north", B7);
+      B8.Exits.Add("east", C8);
+      B8.Exits.Add("west", A8);
+      B8.Exits.Add("south", Edge1);
+
+      C8.Exits.Add("north", C7);
+      C8.Exits.Add("east", D8);
+      C8.Exits.Add("west", B8);
+      C8.Exits.Add("south", Edge1);
+
+      D8.Exits.Add("north", D7);
+      D8.Exits.Add("east", E8);
+      D8.Exits.Add("west", C8);
+      D8.Exits.Add("south", Edge1);
+
+      E8.Exits.Add("north", E7);
+      E8.Exits.Add("east", F8);
+      E8.Exits.Add("west", D8);
+      E8.Exits.Add("south", Edge1);
+
+      F8.Exits.Add("north", F7);
+      F8.Exits.Add("east", G8);
+      F8.Exits.Add("west", E8);
+      F8.Exits.Add("south", Edge1);
+
+      G8.Exits.Add("north", G7);
+      G8.Exits.Add("east", H8);
+      G8.Exits.Add("west", F8);
+      G8.Exits.Add("south", Edge1);
+
+      H8.Exits.Add("north", H7);
+      H8.Exits.Add("east", Edge1);
+      H8.Exits.Add("west", G8);
+      H8.Exits.Add("south", Edge1);
+      //Row 7
+      A7.Exits.Add("north", A6);
+      A7.Exits.Add("east", B7);
+      A7.Exits.Add("west", Edge1);
+      A7.Exits.Add("south", A8);
+
+      B7.Exits.Add("north", B6);
+      B7.Exits.Add("east", C7);
+      B7.Exits.Add("west", A7);
+      B7.Exits.Add("south", B8);
+
+      C7.Exits.Add("north", C6);
+      C7.Exits.Add("east", D7);
+      C7.Exits.Add("west", B7);
+      C7.Exits.Add("south", C8);
+
+      D7.Exits.Add("north", D6);
+      D7.Exits.Add("east", E7);
+      D7.Exits.Add("west", C7);
+      D7.Exits.Add("south", D8);
+
+      E7.Exits.Add("north", E6);
+      E7.Exits.Add("east", F7);
+      E7.Exits.Add("west", E7);
+      E7.Exits.Add("south", E8);
+
+      F7.Exits.Add("north", F6);
+      F7.Exits.Add("east", G7);
+      F7.Exits.Add("west", E7);
+      F7.Exits.Add("south", F8);
+
+      G7.Exits.Add("north", G6);
+      G7.Exits.Add("east", H7);
+      G7.Exits.Add("west", F7);
+      G7.Exits.Add("south", G8);
+
+      H7.Exits.Add("north", H6);
+      H7.Exits.Add("east", Edge1);
+      H7.Exits.Add("west", G7);
+      H7.Exits.Add("south", H8);
+      //Row 6
+      A6.Exits.Add("north", A5);
+      A6.Exits.Add("east", B6);
+      A6.Exits.Add("west", Edge1);
+      A6.Exits.Add("south", A7);
+
+      B6.Exits.Add("north", B5);
+      B6.Exits.Add("east", C6);
+      B6.Exits.Add("west", A6);
+      B6.Exits.Add("south", B7);
+
+      C6.Exits.Add("north", C5);
+      C6.Exits.Add("east", D6);
+      C6.Exits.Add("west", B6);
+      C6.Exits.Add("south", C7);
+
+      D6.Exits.Add("north", D5);
+      D6.Exits.Add("east", E6);
+      D6.Exits.Add("west", C6);
+      D6.Exits.Add("south", D7);
+
+      E6.Exits.Add("north", E5);
+      E6.Exits.Add("east", F6);
+      E6.Exits.Add("west", E6);
+      E6.Exits.Add("south", E7);
+
+      F6.Exits.Add("north", F5);
+      F6.Exits.Add("east", G6);
+      F6.Exits.Add("west", E6);
+      F6.Exits.Add("south", F7);
+
+      G6.Exits.Add("north", G5);
+      G6.Exits.Add("east", H6);
+      G6.Exits.Add("west", F6);
+      G6.Exits.Add("south", G7);
+
+      H6.Exits.Add("north", H5);
+      H6.Exits.Add("east", Edge1);
+      H6.Exits.Add("west", G6);
+      H6.Exits.Add("south", H7);
+      //Row 5
+      A5.Exits.Add("north", A4);
+      A5.Exits.Add("east", B5);
+      A5.Exits.Add("west", Edge1);
+      A5.Exits.Add("south", A6);
+
+      B5.Exits.Add("north", B4);
+      B5.Exits.Add("east", C5);
+      B5.Exits.Add("west", A5);
+      B5.Exits.Add("south", B6);
+
+      C5.Exits.Add("north", C4);
+      C5.Exits.Add("east", D5);
+      C5.Exits.Add("west", B5);
+      C5.Exits.Add("south", C6);
+
+      D5.Exits.Add("north", D4);
+      D5.Exits.Add("east", E5);
+      D5.Exits.Add("west", C5);
+      D5.Exits.Add("south", D6);
+
+      E5.Exits.Add("north", E4);
+      E5.Exits.Add("east", F5);
+      E5.Exits.Add("west", E5);
+      E5.Exits.Add("south", E6);
+
+      F5.Exits.Add("north", F4);
+      F5.Exits.Add("east", G5);
+      F5.Exits.Add("west", E5);
+      F5.Exits.Add("south", F6);
+
+      G5.Exits.Add("north", G4);
+      G5.Exits.Add("east", H5);
+      G5.Exits.Add("west", F5);
+      G5.Exits.Add("south", G6);
+
+      H5.Exits.Add("north", H4);
+      H5.Exits.Add("east", Edge1);
+      H5.Exits.Add("west", G5);
+      H5.Exits.Add("south", H6);
+      //Row 4
+      A4.Exits.Add("north", A3);
+      A4.Exits.Add("east", B4);
+      A4.Exits.Add("west", Edge2);
+      A4.Exits.Add("south", A5);
+
+      B4.Exits.Add("north", B3);
+      B4.Exits.Add("east", C4);
+      B4.Exits.Add("west", A4);
+      B4.Exits.Add("south", B5);
+
+      C4.Exits.Add("north", C3);
+      C4.Exits.Add("east", D4);
+      C4.Exits.Add("west", B4);
+      C4.Exits.Add("south", C5);
+
+      D4.Exits.Add("north", D3);
+      D4.Exits.Add("east", E4);
+      D4.Exits.Add("west", C4);
+      D4.Exits.Add("south", D5);
+
+      E4.Exits.Add("north", E3);
+      E4.Exits.Add("east", F4);
+      E4.Exits.Add("west", E4);
+      E4.Exits.Add("south", E5);
+
+      F4.Exits.Add("north", F3);
+      F4.Exits.Add("east", G4);
+      F4.Exits.Add("west", E4);
+      F4.Exits.Add("south", F5);
+
+      G4.Exits.Add("north", G3);
+      G4.Exits.Add("east", H4);
+      G4.Exits.Add("west", F4);
+      G4.Exits.Add("south", G5);
+
+      H4.Exits.Add("north", H3);
+      H4.Exits.Add("east", Edge1);
+      H4.Exits.Add("west", G4);
+      H4.Exits.Add("south", H5);
+      //Row 3
+      C3.Exits.Add("north", C2);
+      C3.Exits.Add("east", D3);
+      C3.Exits.Add("west", B3);
+      C3.Exits.Add("south", C4);
+
+      D3.Exits.Add("north", D2);
+      D3.Exits.Add("east", E3);
+      D3.Exits.Add("west", C3);
+      D3.Exits.Add("south", D4);
+
+      E3.Exits.Add("north", E2);
+      E3.Exits.Add("east", F3);
+      E3.Exits.Add("west", E3);
+      E3.Exits.Add("south", E4);
+
+      F3.Exits.Add("north", F2);
+      F3.Exits.Add("east", G3);
+      F3.Exits.Add("west", E3);
+      F3.Exits.Add("south", F4);
+
+      G3.Exits.Add("north", G2);
+      G3.Exits.Add("east", H3);
+      G3.Exits.Add("west", F3);
+      G3.Exits.Add("south", G4);
+
+      H3.Exits.Add("north", H2);
+      H3.Exits.Add("east", Edge1);
+      H3.Exits.Add("west", G3);
+      H3.Exits.Add("south", H4);
+      //Row 2
+      C2.Exits.Add("north", C1);
+      C2.Exits.Add("east", D2);
+      C2.Exits.Add("west", B2);
+      C2.Exits.Add("south", C3);
+
+      D2.Exits.Add("north", D1);
+      D2.Exits.Add("east", E2);
+      D2.Exits.Add("west", C2);
+      D2.Exits.Add("south", D3);
+
+      E2.Exits.Add("north", E1);
+      E2.Exits.Add("east", F2);
+      E2.Exits.Add("west", E2);
+      E2.Exits.Add("south", E3);
+
+      F2.Exits.Add("north", F1);
+      F2.Exits.Add("east", G2);
+      F2.Exits.Add("west", E2);
+      F2.Exits.Add("south", F3);
+
+      G2.Exits.Add("north", G1);
+      G2.Exits.Add("east", H2);
+      G2.Exits.Add("west", F2);
+      G2.Exits.Add("south", G3);
+
+      H2.Exits.Add("north", H1);
+      H2.Exits.Add("east", Edge1);
+      H2.Exits.Add("west", G2);
+      H2.Exits.Add("south", H3);
+      //Row 1
+      A1.Exits.Add("north", Edge2);
+      A1.Exits.Add("east", B1);
+      A1.Exits.Add("west", Edge2);
+      A1.Exits.Add("south", A2);
+
+      B1.Exits.Add("north", Edge2);
+      B1.Exits.Add("east", C1);
+      B1.Exits.Add("west", A1);
+      B1.Exits.Add("south", B2);
+
+      C1.Exits.Add("north", Edge2);
+      C1.Exits.Add("east", D1);
+      C1.Exits.Add("west", B1);
+      C1.Exits.Add("south", C2);
+
+      D1.Exits.Add("north", Edge1);
+      D1.Exits.Add("east", E1);
+      D1.Exits.Add("west", C1);
+      D1.Exits.Add("south", D2);
+
+      E1.Exits.Add("north", Edge1);
+      E1.Exits.Add("east", F1);
+      E1.Exits.Add("west", D1);
+      E1.Exits.Add("south", E2);
+
+      F1.Exits.Add("north", Edge1);
+      F1.Exits.Add("east", G1);
+      F1.Exits.Add("west", E1);
+      F1.Exits.Add("south", F2);
+
+      G1.Exits.Add("north", Edge1);
+      G1.Exits.Add("east", H1);
+      G1.Exits.Add("west", F1);
+      G1.Exits.Add("south", G2);
+
+      H1.Exits.Add("north", Edge1);
+      H1.Exits.Add("east", Edge1);
+      H1.Exits.Add("west", G1);
+      H1.Exits.Add("south", H2);
+
+
       F7.Exits.Add(G7);
       //add items to rooms
       //add rooms to room's exits
