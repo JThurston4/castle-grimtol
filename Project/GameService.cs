@@ -14,6 +14,8 @@ namespace CastleGrimtol.Project
 
     public bool GoodSails { get; set; } = false;
 
+    public int Crew { get; set; }
+
     public void GetUserInput()
     {
       System.Console.WriteLine("What is your command Captain:");
@@ -182,7 +184,7 @@ namespace CastleGrimtol.Project
       Room Edge2 = new Room("Edge2", "You continue to sail through the blinding fog hoping to find some long lost treasure when suddenly you see a few members of your crew floating through the air, what an odd sight! Instantly the fog clears and the realization dawns that through your foolhardiness you've sailed past the edge of the world. Glancing up and find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.");
       #endregion
       //creating exits
-      //Row 8
+      //Row 8   
       #region //Room Relationships
       A8.Exits.Add("north", A7);
       A8.Exits.Add("east", B8);
@@ -486,6 +488,16 @@ namespace CastleGrimtol.Project
       #endregion
 
       //add items to rooms
+
+      Item GoodSails = new Item("Sails", "Adding these to our ship cap'n");
+      Item Spectacles = new Item("Spectacles", "some sort of glass thing");
+
+      A4.Items.Add(GoodSails);
+      G1.Items.Add(Spectacles);
+
+
+
+
       //add rooms to room's exits done
       CurrentRoom = F7;
       //default player
@@ -508,6 +520,18 @@ namespace CastleGrimtol.Project
 
     public void TakeItem(string itemName)
     {
+      //does that item exist in the CurrentRoom
+      Item foundItem = CurrentRoom.Items.Find(i => i.Name.ToLower() == itemName.ToLower());
+      if (foundItem != null)
+      {
+        System.Console.WriteLine("It be ours now Cap'n");
+        CurrentPlayer.Inventory.Add(foundItem);
+        CurrentRoom.Items.Remove(foundItem);
+      }
+      else
+      {
+        System.Console.WriteLine("Too much Rum I can't find that");
+      }
 
     }
 
@@ -515,8 +539,39 @@ namespace CastleGrimtol.Project
     {
 
     }
+
+
+    public bool Attack()
+    {
+      if (CurrentRoom is ShipRoom)
+      {
+        ShipRoom room = (ShipRoom)CurrentRoom;
+        return Crew > room.CrewToWin;
+      }
+      else
+      {
+        System.Console.WriteLine("I tink ya been drinking again cap'n, aint no ships");
+        return true;
+      }
+    }
+
     public void UseItem(string itemName)
     {
+      Item foundItem = CurrentPlayer.Inventory.Find(i => i.Name.ToLower() == itemName.ToLower());
+      if (foundItem != null)
+      {
+        if (itemName == "sails")
+        {
+          GoodSails = true;
+          CurrentPlayer.Inventory.Remove(foundItem);
+        }
+
+      }
+      else
+      {
+
+        //did not find message
+      }
 
     }
   }
