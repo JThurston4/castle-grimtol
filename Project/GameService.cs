@@ -47,6 +47,18 @@ namespace CastleGrimtol.Project
         case "search":
           searchThing(value);
           break;
+        case "add":
+          addCrew();
+          break;
+        case "crew":
+          crew();
+          break;
+        case "inventory":
+          Inventory();
+          break;
+        case "help":
+          Help();
+          break;
 
         default:
           System.Console.WriteLine("I think you might have had too much rum");
@@ -55,20 +67,30 @@ namespace CastleGrimtol.Project
 
     }
 
+    private void crew()
+    {
+      System.Console.WriteLine($"Captain! Your crew numbers in the {Crew}'s");
+    }
+
+    private void addCrew()
+    {
+      Crew += 10;
+    }
+
     public void Go(string direction)
     {
       Console.Clear();
       CurrentRoom = CurrentRoom.ChangeRoom(direction);
-
+      Look();
     }
 
     public void Help()
     {
       System.Console.WriteLine(@"List of commands:
-        inventory: displays the items in your inventory.
+        inventory: displays the items in your ship's inventory.
         look: gives you a description of your surroundings.
         take + 'item': takes an item if one is available at your location.
-        use + 'item': attempts use an item in your inventory.
+        use + 'item': attempts use an item in your ship's inventory.
         reset: starts the game over.
         quit: stops the game entirely.");
     }
@@ -104,6 +126,7 @@ namespace CastleGrimtol.Project
 
     public void Setup()
     {
+      Crew = 30;
       #region //Create rooms
       string empty = "The water seems calm, not much here.";
       string rough = "seems extremely rough, caution is required";
@@ -111,7 +134,7 @@ namespace CastleGrimtol.Project
       string openSea = "nothing but open seas to the";
       string OpenSea = "Nothing but open seas to the";
       string island = "you see a small island";
-      string onIsland = "You sail up to a small island, there appears to be someone on the island waving as you draw near.";
+      string onIsland = "You sail up to a small island, there appears to be people on the island waving as you draw near. Would you like to add them to the crew?";
       string edge = "the water drops straight down with nothing but open air beyond.  This appears to be the edge of the world.";
       string fog = "an ominous fog blocks your view.";
       string inFog = "You have sailed into the thick fog and lost all visibility. In the distance the sound of lightning cracks through the air. The waters are shifting rapidly and your crew looks nervous. You hear a few of them whisper among themselves 'surely there is nothing worth the risk of these waters'.";
@@ -491,6 +514,7 @@ namespace CastleGrimtol.Project
 
       Item GoodSails = new Item("Sails", "Adding these to our ship cap'n");
       Item Spectacles = new Item("Spectacles", "some sort of glass thing");
+
 
       A4.Items.Add(GoodSails);
       G1.Items.Add(Spectacles);
