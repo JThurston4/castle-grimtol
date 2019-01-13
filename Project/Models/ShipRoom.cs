@@ -11,12 +11,14 @@ namespace CastleGrimtol.Project.Models
     public Dictionary<string, IRoom> Exits { get; set; }
     public int CrewToWin { get; set; }
     public bool LockedRoom { get; set; }
+    public bool DoomedRoom { get; set; }
 
-    public ShipRoom(string name, string description)
+
+    public ShipRoom(string name, string description, bool lockedroom = false, bool doomedRoom = false)
     {
       Name = name;
       Description = description;
-      LockedRoom = false;
+      LockedRoom = lockedroom;
       Items = new List<Item>();
       Exits = new Dictionary<string, IRoom>();
     }

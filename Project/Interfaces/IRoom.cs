@@ -10,6 +10,7 @@ namespace CastleGrimtol.Project.Interfaces
     List<Item> Items { get; set; }
     Dictionary<string, IRoom> Exits { get; set; }
     bool LockedRoom { get; set; }
+    bool DoomedRoom { get; set; }
 
     IRoom ChangeRoom(string direction);
   }

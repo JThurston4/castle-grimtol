@@ -16,6 +16,7 @@ namespace CastleGrimtol.Project.Models
       Name = name;
       Description = description;
       LockedRoom = lockedroom;
+      DoomedRoom = doomedroom;
       Items = new List<Item>();
       Exits = new Dictionary<string, IRoom>();
     }
@@ -28,6 +29,11 @@ namespace CastleGrimtol.Project.Models
         System.Console.WriteLine("cant enter");
         return this;
       }
+      // else if (Exits.ContainsKey(direction) && room.DoomedRoom == true)
+      // {
+      //   System.Console.WriteLine("cant enter");
+      //   return this;
+      // }
       else
       {
         return Exits[direction];
