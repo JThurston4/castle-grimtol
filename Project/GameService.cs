@@ -67,6 +67,9 @@ namespace CastleGrimtol.Project
         case "attack":
           Attack();
           break;
+        case "upgrades":
+          upgrades();
+          break;
 
         default:
           System.Console.WriteLine("I think you might have had too much rum");
@@ -78,6 +81,10 @@ namespace CastleGrimtol.Project
     private void crew()
     {
       System.Console.WriteLine($"Captain! Your crew numbers in the {Crew}'s");
+    }
+    private void upgrades()
+    {
+      System.Console.WriteLine($"Captain! The Drowning Whale has {Upgrades} upgrades");
     }
 
     private void addCrew()
@@ -136,6 +143,9 @@ namespace CastleGrimtol.Project
         look: gives you a description of your surroundings.
         take + 'item': takes an item if one is available at your location.
         use + 'item': attempts use an item in your ship's inventory.
+        attack: attacks another ship if you in the same part of the sea.
+        crew: view the size of your crew.
+        upgrades: view how many upgrades your ship has.
         reset: starts the game over.
         quit: stops the game entirely.");
     }
