@@ -15,6 +15,7 @@ namespace CastleGrimtol.Project.Models
     public bool DoomedRoom { get; set; }
     public bool EdgeRoom { get; set; }
     public bool FogEdge { get; set; }
+    public bool defeated { get; set; }
 
     public ShipRoom(string name, string description, int requiredCrew, int requiredUpgrades, bool lockedroom = false, bool doomedRoom = false)
     {
@@ -25,6 +26,7 @@ namespace CastleGrimtol.Project.Models
       Exits = new Dictionary<string, IRoom>();
       CrewToWin = requiredCrew;
       UpragesToWin = requiredUpgrades;
+      defeated = false;
     }
 
     public IRoom ChangeRoom(string direction)
