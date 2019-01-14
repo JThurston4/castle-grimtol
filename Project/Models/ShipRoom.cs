@@ -27,6 +27,7 @@ namespace CastleGrimtol.Project.Models
       CrewToWin = requiredCrew;
       UpragesToWin = requiredUpgrades;
       defeated = false;
+      DoomedRoom = doomedRoom;
     }
 
     public IRoom ChangeRoom(string direction)

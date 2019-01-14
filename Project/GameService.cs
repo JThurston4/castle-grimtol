@@ -23,7 +23,36 @@ namespace CastleGrimtol.Project
     public int Crew { get; set; }
     public int Upgrades { get; set; }
     private bool Winnable { get; set; }
-
+    public void art()
+    {
+      if (dead == true)
+      {
+        System.Console.WriteLine(@"
+         _,.-------.,_
+     ,;~'             '~;, 
+   ,;                     ;,
+  ;                         ;
+ ,'                         ',
+,;                           ;,
+; ;      .           .      ; ;
+| ;   ______       ______   ; | 
+|  `/~'     ~' . '~     '~\'  |
+|  ~  ,-~~~^~, | ,~^~~~-,  ~  |
+ |   |        }:{        |   | 
+ |   l       / | \       !   |
+ .~  (__,.--' .^. '--.,__)  ~. 
+ |     ---;' / | \ `;---     |  
+  \__.       \/^\/       .__/  
+   V| \                 / |V  
+    | |T~\___!___!___/~T| |  
+    | |`IIII_I_I_I_IIII'| |  
+    |  \,III I I I III,/  |  
+     \   `~~~~~~~~~~'    /
+       \   .       .   /
+         \.    ^    ./   
+           ^~~~^~~~^ ");
+      }
+    }
     public void GetUserInput()
     {
       System.Console.WriteLine("What is your command Captain:");
@@ -115,27 +144,18 @@ namespace CastleGrimtol.Project
         if (Spectacles == false && GoodSails == false)
         {
           CurrentRoom = CurrentRoom.ChangeRoom(direction);
-          if (CurrentRoom is ShipRoom)
-          {
-            ShipRoom room = (ShipRoom)CurrentRoom;
-            if (room.DoomedRoom == true)
-            {
-              System.Console.WriteLine("Captain! The waters be to rough for these patchy sails, we'll never make it!");
-              System.Console.WriteLine("You and your crew have been swept away and will forever rot at the oceans floor.");
-              dead = true;
-              return;
-            }
-          }
           if (CurrentRoom.DoomedRoom == true)
           {
             System.Console.WriteLine("Captain! The waters be to rough for these patchy sails, we'll never make it!");
             System.Console.WriteLine("You and your crew have been swept away and will forever rot at the oceans floor.");
             dead = true;
+            art();
             return;
           }
           else if (CurrentRoom.EdgeRoom == true || CurrentRoom.FogEdge == true || CurrentRoom.Name == "A2" || CurrentRoom.Name == "A3" || CurrentRoom.Name == "B2" || CurrentRoom.Name == "B3")
           {
             dead = true;
+            art();
           }
         }
         else if (Spectacles == false && GoodSails == true)
@@ -144,6 +164,7 @@ namespace CastleGrimtol.Project
           {
             System.Console.WriteLine("You foolishly attempt to flee and are instantly gunned down. The sound of Blackbeard laughing echoes in your mind as you sink further and further.");
             dead = true;
+            art();
             return;
           }
           else if (CurrentRoom.Name == "H6" && superSpeed == true)
@@ -163,6 +184,7 @@ namespace CastleGrimtol.Project
             else if (CurrentRoom.EdgeRoom == true || CurrentRoom.FogEdge == true || CurrentRoom.Name == "A2" || CurrentRoom.Name == "A3" || CurrentRoom.Name == "B2" || CurrentRoom.Name == "B3")
             {
               dead = true;
+              art();
             }
           }
         }
@@ -172,6 +194,7 @@ namespace CastleGrimtol.Project
           {
             System.Console.WriteLine("You foolishly attempt to flee and are instantly gunned down. The sound of Blackbeard laughing echoes in your mind as you sink further and further.");
             dead = true;
+            art();
             return;
           }
           else if (CurrentRoom.Name == "H6" && superSpeed == true)
@@ -185,6 +208,7 @@ namespace CastleGrimtol.Project
             if (CurrentRoom.EdgeRoom == true || CurrentRoom.FogEdge == true || CurrentRoom.Name == "A2" || CurrentRoom.Name == "A3" || CurrentRoom.Name == "B2" || CurrentRoom.Name == "B3")
             {
               dead = true;
+              art();
             }
           }
         }
@@ -241,6 +265,7 @@ namespace CastleGrimtol.Project
       {
         System.Console.WriteLine("The sound of the sirens song sooths the soul. You the coy captain are captivated by the creatures cool charm. Mesmerized by the marvelous melody your mind miraculously mellows. You and your crew have become their prey.");
         dead = true;
+        art();
       }
       else if (CurrentRoom.Name == "C6")
       {
@@ -278,7 +303,196 @@ namespace CastleGrimtol.Project
       string openSea = "nothing but open seas to the";
       string OpenSea = "Nothing but open seas to the";
       string island = "you see a small island";
-      string onIsland = "You sail up to a small island, there appears to be people on the island who wave as you draw near. Can always use more hands to swab the deck (take crew)";
+      #region //ascii art
+      string sword = @"
+      /| ________________
+O|===|* >________________>
+      \|
+      ";
+      string glasses = @"
+        _,--,            _
+   __,-'____| ___      /' |
+ /'   `\,--,/'   `\  /'   |
+(       )  (       )'
+ \_____/'  `\_____/   
+      ";
+      string aMap = @"
+          _______________
+    ()==(              (@==()
+         '______________'|
+           |             |
+           |             |
+         __)_____________|
+    ()==(               (@==()
+         '--------------'
+      ";
+      string fish = @"
+                 |
+                 |
+                ,|.
+               ,\|/.
+             ,' .V. `.
+            / .     . \
+           /_`       '_\
+          ,' .:     ;, `.
+          |@)|  . .  |(@|
+     ,-._ `._';  .  :`_,' _,-.
+    '--  `-\ /,-===-.\ /-'  --`
+   (----  _|  ||___||  |_  ----)
+    `._,-'  \  `-.-'  /  `-._,'
+             `-.___,-' 
+
+      ";
+      string siren = @"
+                                                                          
+                                                 _______                  
+                                          _,,_,-'       `-.               
+                                        ,'    .' ' _,.,-'  \              
+                                       /    ,----''   \_  \ )             
+            -.-                        |   || -.  ,-.  ))   `\            
+       -.-                             ||    >a )  a   '/ |  /            
+           -.-                          \\  (  <_      / /  |             
+                                         `.  \  ___   /     |             
+                                ,---.      \ \`. -' ,'|   \  \            
+                               /     `,''`-.\  \`--'| | |  `.\`.          
+                              / / , ,'  /`--' ) | __| | | |     \         
+                          `--' ' / /   /  -- _,-''    |   |   \  |        
+                        -.__,,-  ,'   /--_,-'         /      | | |        
+                       -_    _, /    /,-'     ___   ,' /|      | |        
+                      `-._..   /   ,'     _,-' ,---'  ,' /       |        
+                       -__    /       _,-'_,-,'    -'   /       /         
+                      -_ `  -|    _,-'- ,'  /       -',   ,  | |          
+                        `-.  `---'  _,-'   /  ,'        ,/  ,\ |          
+                           ``-----''  __,-'  / ,' ,    /|  / /`.\_,       
+                                   ,-'     -' '  /    / | /  |  `\        
+                        `--.__,,--'     ,--'    ','/ /  \(   /\   \       
+     _,---._               -..__,,-' ,      -'   _, /    `' /  \   \      
+    /       \              -. `----'' __,,----.__,-'-   -  -|   >   )     
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`''----''~~~~~~~~~~|-'       '-/~~/   /~~~~~~
+    ~ ~~ ~~ ~                -     -  _  -    __|' '-  `- -/_ /  ,' -  _  
+  -  ~   ~ ~         -    _     -   _      ,-'`- `-' '-'-'-| /  /    -    
+       ~ ~      -             _      _,,--'`- `-`- -' -''-'|/ ,'  _    -  
+ -    ~ ~ ~           -          ,-'' `-` `- `- `-`-`-'-' '| (_ -    -    
+   _   ~   ~              `-  ,-' --`- `-`-`-`- `-`- `- `-'/. ,--,,, _   _
+ -    ~  ~   `-   -'  -'-   ,' `-'`- `-`- `- `-`- -`-`- `,'  `'     ''--. 
+       ~    `-  '-        ,' `-`- -' `- `-- `-_`_,`,,`--'                }
+  -  ~  -`-   -'-  -'--  / `-' `-`-'`-,-`--'''                  ___,,-  | 
+ ,-'-  ~  -`-  -'-  _,--/`- -'`-'`-,-'        _,,__                     | 
+   -''---'  --'--,-'   /`-' `- -','            \   `-. --'             /  
+ -'-._.-' `--.,-'     /  `-`-'  /               | | / \               /_  
+            ,'       / `- `-`-,'       __,,--   | | /  |---._           | 
+                    / `-' `- /     __,'         /`-  / ,---__\          | 
+                         -','    ,'          ,-'`- `- ,---___ \           
+                                          ,-' `- `-_`,--''   ``  
+      ";
+      string kraken = @"
+                        ___
+                     .-'   `'.
+                    /         \
+                    |         ;
+                    |         |           ___.--,
+           _.._     |0) ~ (0) |    _.---'`__.-( (_.
+    __.--'`_.. '.__.\    '--. \_.-' ,.--'`     `''`
+   ( ,.--'`   ',__ /./;   ;, '.__.'`    __
+   _`) )  .---.__.' / |   |\   \__..--''  '''--., _
+  `---' .'.'' -._.- '`_./  /\ '.  \ _.- ~~~````~~~-._`-.__.'
+           | |  .' _.-' |  |  \  \  '.               `~---`
+         \ \/ .'     \  \   '. '-._)
+          \/ /        \  \    `=.__`~-.
+         / /\         `) )    / / `''.`\
+    , _.- '.'\ \        / / ((     / /
+     `--~`   ) )    .-'.'      '.'.  | (
+            (/`    ((`          ) )  '-;
+             `      '-;         (-'
+
+
+      ";
+      string boss = @"
+                            .xm*f''??T?@hc.
+                          z@'` '~((!!!!!!!?*m.
+                        z$$$K   ~~(/!!!!!!!!!Mh
+                      .f` '#$k'`~~\!!!!!!!!!!!MMc
+                     :'     f*! ~:~(!!!!!!!!!!XHMk
+                     f      ' %n:~(!!!!!!!!!!!HMMM.
+                    d          X~!~(!!!!!!!X!X!SMMR
+                    M :   x::  :~~!>!!!!!!MNWXMMM@R
+ n                  E ' *  ueeeeiu(!!XUWWWWWXMRHMMM>                :.
+ E%                 E  8 .$$$$$$$$K!!$$$$$$$$&M$RMM>               :'5
+z  %                3  $ 4$$$$$$$$!~!*$$$$$$$$!$MM$               :' `
+K   ':              ?> # '#$$$$$#~!!!!TR$$$$$R?@MME              z   R
+?     %.             5     ^'''~~~:XW!!!!T?T!XSMMM~            :^    J
+ '.    ^s             ?.       ~~d$X$NX!!!!!!M!MM             f     :~
+  '+.    #L            *c:.    .~'?!??!!!!!XX@M@~           z'    .*
+    '+     %L           #c`'!+~~~!/!!!!!!@*TM8M           z'    .~
+      ':    '%.         'C*X  .!~!~!!!!!X!!!@RF         .#     +
+        ':    ^%.        9-MX!X!!X~H!!M!N!X$MM        .#`    +'
+          #:    'n       'L'!~M~)H!M!XX!$!XMXF      .+`   .z'
+            #:    ':      R *H$@@$H$*@$@$@$%M~     z`    +'
+              %:   `*L    'k' M!~M~X!!$!@H!tF    z'    z'
+                *:   ^*L   'k ~~~!~!!!!!M!X*   z*   .+'
+                  's   ^*L  '%:.~~~:!!!!XH'  z#   .*'
+                    #s   ^%L  ^'#4@UU@##'  z#   .*'
+                      #s   ^%L           z#   .r'
+                        #s   ^%.       u#   .r'
+                          #i   '%.   u#   .@'
+                            #s   ^%u#   .@'
+                              #s x#   .*'
+                               x#`  .@%.
+                             x#`  .d'  '%.
+                           xf~  .r' #s   '%.
+                     u   x*`  .r'     #s   '%.  x.
+                     %Mu*`  x*'         #m.  '%zX'
+                     :R(h x*              'h..*dN.
+                   u@NM5e#>                 7?dMRMh.
+                 z$@M@$#'#'                 *''*@MM$hL
+               u@@MM8*                          '*$M@Mh.
+             z$RRM8F'                             'N8@M$bL
+            5`RM$#                                  'R88f)R
+            'h.$'                                     #$x*
+
+      ";
+      string flag = @"
+      	
+                         __________
+                      .~#########%%;~.
+                     /############%%;`\
+                    /######/~\/~\%%;,;,\
+                   |#######\    /;;;;.,.|
+                   |#########\/%;;;;;.,.|
+          XX       |##/~~\####%;;;/~~\;,|       XX
+        XX..X      |#|  o  \##%;/  o  |.|      X..XX
+      XX.....X     |##\____/##%;\____/.,|     X.....XX
+ XXXXX.....XX      \#########/\;;;;;;,, /      XX.....XXXXX
+X |......XX%,.@      \######/%;\;;;;, /      @#%,XX......| X
+X |.....X  @#%,.@     |######%%;;;;,.|     @#%,.@  X.....| X
+X  \...X     @#%,.@   |# # # % ; ; ;,|   @#%,.@     X.../  X
+ X# \.X        @#%,.@                  @#%,.@        X./  #
+  ##  X          @#%,.@              @#%,.@          X   #
+, '# #X            @#%,.@          @#%,.@            X ##
+   `###X             @#%,.@      @#%,.@             ####'
+  . ' ###              @#%.,@  @#%,.@              ###`'
+    . ';'                @#%.@#%,.@                ;'` ' .
+      '                    @#%,.@                   ,.
+      ` ,                @#%,.@  @@                `
+                          @@@  @@@  
+      ";
+      string onIsland = @"
+      	
+                                                    ____
+                                         v        _(    )
+        _ ^ _                          v         (___(__)
+       '_\V/ `
+       ' oX`
+          X                            v
+          X             -HELP!
+          X                                                 .
+          X        \O/                                      |\
+          X.a##a.   M                                       |_\
+       .aa########a.>>                                    __|__
+    .a################aa.                                 \   /
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You sail up to a small island, there appears to be people on the island who wave as you draw near. Can always use more hands to swab the deck (take crew)";
+      #endregion
       string edge = "the water drops straight down with nothing but open air beyond.  This appears to be the edge of the world.";
       string fog = "an ominous fog blocks your view.";
       string inFog = "You have sailed into the thick fog and lost all visibility. In the distance the sound of lightning cracks through the air. The waters are shifting rapidly and your crew looks nervous. You hear a few of them whisper among themselves 'surely there is nothing worth the risk of these waters'.";
@@ -287,8 +501,8 @@ namespace CastleGrimtol.Project
       Room G7 = new Room("G7", $"{empty} To the North you see a small island, the water to the east {rough}, {openSea} south and west.");
       Room E7 = new Room("E7", $"{empty} You see a ship to the West with a ragged looking green skull on it's sails.  To the South you see a small island, {openSea} North and East.");
       Room F8 = new Room("F8", $"{empty} To the South {edge} To the West {island}, {openSea} to the North and East.");
-      Room F6 = new Room("F6", $"You see a barrell floating in the ocean, inside are weapons for your crew! Would you like to take the weapons? To the East {island}. {OpenSea} North, West, and South.");
-      ShipRoom D7 = new ShipRoom("D7", $"You come face to face with the infamous Flying Dutchmen!  This ghostly crew doesnt look to happy to see you. To the West the water {rough}. {OpenSea} North, East and South.", 50, 0);
+      Room F6 = new Room("F6", $"{sword} You see a barrell floating in the ocean, inside are weapons for your crew! Would you like to take the weapons? To the East {island}. {OpenSea} North, West, and South.");
+      ShipRoom D7 = new ShipRoom("D7", $"{flag} You come face to face with the infamous Flying Dutchmen!  This ghostly crew doesnt look to happy to see you but they dont look so tough. If you think you're ready you can try attacking. To the West the water {rough}. {OpenSea} North, East and South.", 50, 0);
       Room D8 = new Room("D8", $"{empty} You see a ship to the North with a ragged looking green skull on it's sails.  To the East {island}.  The water to the West {rough}. When you look South {edge}");
       Room E8 = new Room("E8", $"{onIsland} {OpenSea} North, East, and West.  When you look South {edge}");
       Room G8 = new Room("G8", $"{empty} To the East the water {rough}. {OpenSea} North and West. When you look South {edge}");
@@ -300,17 +514,17 @@ namespace CastleGrimtol.Project
       Room F5 = new Room("F5", $"{empty} To the North the water {rough}. Looking South {island}. {OpenSea} East and West.");
       Room G5 = new Room("G5", $"{empty} The water to the North and East {rough}. Further North there appears to be a ship. Down South {island} and {openSea} to the West.");
       Room A8 = new Room("A8", $"{empty} A faint glimmer catches your eye toward the East. {OpenSea} North. Both West and South {edge}");
-      Room B8 = new Room("B8", $"You stumble upon a bottle floating in the middle of the sea. Inside you is a map. To the North {island} and {openSea} East and West. Looking South {edge}");
+      Room B8 = new Room("B8", $"{aMap} You stumble upon a bottle floating in the middle of the sea. Inside you is a map. To the North {island} and {openSea} East and West. Looking South {edge}");
       Room C8 = new Room("C8", $"{empty} Looking East {rough2} A faint glimmer catches your eye toward the West. {OpenSea} North however over South {edge}", false, true);
       Room H8 = new Room("H8", $"{empty} To the North {island} and to the West {rough2}. Towards East and South {edge}", false, true);
       Room A7 = new Room("A7", $"{empty} You can faintly see a pirate ship over North. Upon closer inspection it the sails appear to be yellow with a smiling Jolly Roger. To the East {island} and {openSea} South. Looking West {edge}");
       Room B7 = new Room("B7", $"{onIsland} A faint glimmer catches your eye toward the South. {OpenSea} North, East, and West.");
       Room C7 = new Room("C7", $"{empty} To the East {rough2} Toward the West {island}. Looking North you see bizarre creatures bobbing at the water. {OpenSea} South", false, true);
       Room H7 = new Room("H7", $"{onIsland} A massive warship looms North, its sails are black with a laughing Jolly Roger. Etched on its side you read the words 'Queen Anne's Revenge'. The sheer sight of it fills you with dread. To the West {rough2} {OpenSea} South and looking East {edge}", false, true);
-      ShipRoom A6 = new ShipRoom("A6", $"You have made contact with pirate ship Happy Delivery. Captain Lowther appears to want nothing more than to sink your vessel and plunder anything that remains. To the North {island} and {openSea} East and South. Over West {edge}", 60, 0);
+      ShipRoom A6 = new ShipRoom("A6", $"{flag} You have made contact with pirate ship Happy Delivery. Captain Lowther appears to want nothing more than to sink your vessel and plunder anything that remains. To the North {island} and {openSea} East and South. Over West {edge}", 60, 0);
       Room B6 = new Room("B6", $"{empty} You can faintly see a pirate ship over West. Upon closer inspection it the sails appear to be yellow with a smiling Jolly Roger. Down South {island}. Looking East you see bizarre creatures bobbing at the water and {openSea} North.");
-      ShipRoom C6 = new ShipRoom("C6", $"You encounter some of the most grotesque creatures you've ever seen. From the waist down their body appears to be human and above the waist is fish. The inefficient design of their bodies is making it difficult for them to swim but as you see the mouth of one open you notice multipe rows of razor sharp teeth. To the East {rough2} {OpenSea} North, South, and West.", 0, 0, false, true);
-      ShipRoom H6 = new ShipRoom("H6", $"You are now face to face with The Queen Anne's Revenge. Captained by the fearsome pirate Edward Teach this monstrous vessel knows no defeat. Outfitted with 40 cannons all pointing towards The Drowning Whale, you know escape is to late. You must fight if you want any chance of survival no matter how slim. To the East {edge} Perhaps sailing toward it would be a more merciful death...", 100, 3, false, true);
+      ShipRoom C6 = new ShipRoom("C6", $"{fish} You encounter some of the most grotesque creatures you've ever seen. From the waist down their body appears to be human and above the waist is fish. The inefficient design of their bodies is making it difficult for them to swim but as you see the mouth of one open you notice multipe rows of razor sharp teeth. To the East {rough2} {OpenSea} North, South, and West.", 0, 0, false, true);
+      ShipRoom H6 = new ShipRoom("H6", $"{boss} You are now face to face with The Queen Anne's Revenge. Captained by the fearsome pirate Edward Teach this monstrous vessel knows no defeat. Outfitted with 40 cannons all pointing towards The Drowning Whale, you know escape is to late. You must fight if you want any chance of survival no matter how slim. To the East {edge} Perhaps sailing toward it would be a more merciful death...", 100, 3, false, true);
       Room A5 = new Room("A5", $"{onIsland} To the North {fog} You can faintly see a pirate ship down South. Upon closer inspection it the sails appear to be yellow with a smiling Jolly Roger. {OpenSea} East. Looking West {edge}");
       Room B5 = new Room("B5", $"{empty} To the North {fog} Looking West {island} and {openSea} East and South.");
       Room C5 = new Room("C5", $"{empty} To the North {fog} Looking South you see bizarre creatures bobbing at the water. Towards the East {rough2} {OpenSea} West.", false, true);
@@ -321,31 +535,31 @@ namespace CastleGrimtol.Project
       Room D4 = new Room("D4", $"{empty} To the West {fog} Down South {rough2} {OpenSea} North and East.", false, true);
       Room E4 = new Room("E4", $"{empty} In the distance North you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. To the South {rough2} {OpenSea} East and West.", false, true);
       Room F4 = new Room("F4", $"To the East you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. To the South {rough2} {OpenSea} North and West.", false, true);
-      ShipRoom G4 = new ShipRoom("G4", $"The ship you have sailed upon is none other than Captain Bartholomew Roberts' Royal Fortune. Roberts is known for his ruthless plundering and is looking at your ship with hungry eyes. To the East {island} and to the South {rough2} {OpenSea} North and West.", 70, 1, false, true);
+      ShipRoom G4 = new ShipRoom("G4", $"{flag} The ship you have sailed upon is none other than Captain Bartholomew Roberts' Royal Fortune. Roberts is known for his ruthless plundering and is looking at your ship with hungry eyes. To the East {island} and to the South {rough2} {OpenSea} North and West.", 70, 1, false, true);
       Room H4 = new Room("H4", $"{onIsland} To the West you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. {OpenSea} North and South. Over East {edge}");
-      Room A3 = new Room("A3", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
-      Room B3 = new Room("B3", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
-      Room C3 = new Room("C3", $"{inFog} Through the thick fog you notice a small island is right next to you with what looks like someone waving at you. Would you like to add them to the crew? (take crew)", true);
+      Room A3 = new Room("A3", $"{kraken} The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
+      Room B3 = new Room("B3", $"{kraken} The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
+      Room C3 = new Room("C3", $"{onIsland} {inFog}", true);
       Room D3 = new Room("D3", $"{empty} In the distance East you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. To the West {fog} {OpenSea} North and South");
-      ShipRoom E3 = new ShipRoom("E3", $"You've sailed upon the pirate ship Fancy! Captain Avery loves the finer things in life and while The Drowning Whale is nothing to brag about you and your crew would fetch a nice price as slaves. You are surrounded by open sea.", 60, 0);
+      ShipRoom E3 = new ShipRoom("E3", $"{flag} You've sailed upon the pirate ship Fancy! Captain Avery loves the finer things in life and while The Drowning Whale is nothing to brag about you and your crew would fetch a nice price as slaves. You are surrounded by open sea.", 60, 0);
       Room F3 = new Room("F3", $"{empty} To the North you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. In the distance West you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. {OpenSea} East and South.");
       Room G3 = new Room("G3", $"{empty} To the South you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. {OpenSea} North, East, and West.");
       Room H3 = new Room("H3", $"{empty} A sinister looking pirate ship suddenly appears to the North. Its red sails and scowling Roger send shivers down your spine. To the South {island} and {openSea} West. Looking East {edge}");
-      Room A2 = new Room("A2", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
-      Room B2 = new Room("B2", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
+      Room A2 = new Room("A2", $"{kraken} The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
+      Room B2 = new Room("B2", $"{kraken} The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
       Room C2 = new Room("C2", $"{inFog}", true);
       Room D2 = new Room("D2", $"{empty} To the North {island} and to the West {fog} {OpenSea} East and South.");
       Room E2 = new Room("E2", $"{empty} To the East you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. In the distance South you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. {OpenSea} North and West.");
-      ShipRoom F2 = new ShipRoom("F2", $"You have sailed upon some enchanting creatures and as you draw near they begin swimming towards your ship, they look like they want to talk. You gaze wonderously at these elegant beings, their upper body a beautiful woman and lower a fish-like tail. Nothing but openseas surrounds you.", 0, 0, false, false);
+      ShipRoom F2 = new ShipRoom("F2", $"{siren} You have sailed upon some enchanting creatures and as you draw near they begin swimming towards your ship, they look like they want to talk. You gaze wonderously at these elegant beings, their upper body a beautiful woman and lower a fish-like tail. Nothing but openseas surrounds you.", 0, 0, false, false);
       Room G2 = new Room("G2", $"{empty} A sinister looking pirate ship suddenly appears to the East. Its red sails and scowling Roger send shivers down your spine. To the West you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. To the North you see a lonesome barrell floating in the water. {OpenSea} South.");
-      ShipRoom H2 = new ShipRoom("H2", $"You've decided to sail straight towards the Adventure Galley and as Captain Kidd stares you down you begin to think this might be a bad idea. Very few people have the chance to meet Captain Kidd and even fewer make it out alive. {OpenSea} North, South, and West. Looking East {edge}", 80, 2);
+      ShipRoom H2 = new ShipRoom("H2", $"{flag} You've decided to sail straight towards the Adventure Galley and as Captain Kidd stares you down you begin to think this might be a bad idea. Very few people have the chance to meet Captain Kidd and even fewer make it out alive. {OpenSea} North, South, and West. Looking East {edge}", 80, 2);
       Room A1 = new Room("A1", $"While sailing through the thick fog you almost run directly into an island that shot up out of no where. There looks to be some crates on the island. You crack open a crate and find none other than Hollow Point Cannonballs! (take cannonballs)");
       Room B1 = new Room("B1", $"{inFog}");
       Room C1 = new Room("C1", $"{inFog}", true);
       Room D1 = new Room("D1", $"{onIsland} To the West {fog} {OpenSea} East and South. Up North {edge}");
       Room E1 = new Room("E1", $"{empty} To the West {island}, {openSea} East and South, and up North {edge}");
       Room F1 = new Room("F1", $"{empty} To the South you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. To the East you see a lonesome barrell floating in the water. {OpenSea} West and up North {edge}");
-      Room G1 = new Room("G1", $"You've come upon a barrell floating at sea, inside are some strange spectacles. {OpenSea} East, West, and South. Up north {edge}");
+      Room G1 = new Room("G1", $"{glasses} You've come upon a barrell floating at sea, inside are some strange spectacles. {OpenSea} East, West, and South. Up north {edge}");
       Room H1 = new Room("H1", $"{empty} A sinister looking pirate ship suddenly appears to the South. Its red sails and scowling Roger send shivers down your spine. To the West you see a lonesome barrell floating in the water. To the North and East {edge}");
       Room Edge1 = new Room("Edge1", "You decide to test your curiousity and sail full speed where the water drops. As you clear the steep angle your ship loses all control and gets hurdled downward. You quickly grab a nearby rope temporarily securing you to The Drowning Whale. Looking around you see members of your crew flying through the air, some screaming and others silent. Glancing up you find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.", false, false, true);
       Room Edge2 = new Room("Edge2", "You continue to sail through the blinding fog hoping to find some long lost treasure when suddenly you see a few members of your crew floating through the air, what an odd sight! Instantly the fog clears and the realization dawns that through your foolhardiness you've sailed past the edge of the world. Glancing up you find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.", false, false, false, true);
@@ -708,6 +922,8 @@ namespace CastleGrimtol.Project
       //game intro
       System.Console.WriteLine("Ahoy Captain! Looks like you passed out after drinking to much rum again! You're not the only one though, none of the crew know where we wound up after the feast last night. These waters seem dangerous but I bet they're full of treasure! Lets look around and see where we should go.");
       Look();
+      System.Console.WriteLine(" ");
+      Help();
     }
 
     public void StartGame()
@@ -835,6 +1051,7 @@ namespace CastleGrimtol.Project
             {
               System.Console.WriteLine("On your order cannonballs begin to fly. The hideous mermaids miraculously dodge them, perhaps they're used to this? Before you have time to think any more they start chomping on your ship ripping sizeable chunks out with each bite. The Drowning Whale begins to drown leaving you and your crew to be nothing more than fish food.");
               dead = true;
+              art();
             }
             else
             {
@@ -845,19 +1062,42 @@ namespace CastleGrimtol.Project
           else if (Crew >= room.CrewToWin && Upgrades >= room.UpragesToWin && Winnable == true && room.Name == "H6")
           {
             //winner
-            System.Console.WriteLine(@"You've conquered all the seas and are now King of the Pirates!
+            System.Console.WriteLine(@"
+                                     o
+                                   $''$o
+                                  $'  $$
+                                   $$$$
+                                   o '$o
+                                  o'  '$
+             oo'$$$'  oo$'$ooo   o$    '$    ooo'$oo  $$$'o
+o o o o    oo'  o'      'o    $$o$'     o o$''  o$      '$  'oo   o o o o
+'$o   ''$$$'   $$         $      '   o   ''    o'         $   'o$$'    o$$
+  ''o       o  $          $'       $$$$$       o          $  ooo     o''
+     'o   $$$$o $o       o$        $$$$$'       $o        ' $$$$   o'
+      ''o $$$$o  oo o  o$'         $$$$$'        'o o o o'  '$$$  $
+        '' '$'     '''''            ''$'            '''      ''' '
+         'oooooooooooooooooooooooooooooooooooooooooooooooooooooo$
+          '$$$$'$$$$' $$$$$$$'$$$$$$ ' '$$$$$'$$$$$$'  $$$''$$$$
+           $$$oo$$$$   $$$$$$o$$$$$$o' $$$$$$$$$$$$$$ o$$$$o$$$'
+           $'''''''''''''''''''''''''''''''''''''''''''''''''''$
+           $'                                                 '$
+           $'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$'$
+
+            You've conquered all the seas and are now King of the Pirates!
             You win!");
           }
           else
           {
             System.Console.WriteLine("The long battle has proven to much for you and your make shift crew, the enemy overwhelms you. Time to walk the plank.");
             dead = true;
+            art();
           }
         }
         else
         {
           System.Console.WriteLine("The long battle has proven to much for you and your make shift crew, the enemy overwhelms you. Time to walk the plank.");
           dead = true;
+          art();
         }
       }
       else
