@@ -18,7 +18,7 @@ namespace CastleGrimtol.Project
     public bool Map { get; set; } = false;
     public bool Weapons { get; set; } = false;
     public bool dead { get; set; } = false;
-    private bool superSpeed {get; set;} = false;
+    private bool superSpeed { get; set; } = false;
 
     public int Crew { get; set; }
     public int Upgrades { get; set; }
@@ -41,11 +41,11 @@ namespace CastleGrimtol.Project
           Look();
           break;
         case "go":
-        if (value != "north" && value != "east" && value != "west" && value != "south")
-        {
-          System.Console.WriteLine("I think you might have had too much rum");
-        break;
-        }
+          if (value != "north" && value != "east" && value != "west" && value != "south")
+          {
+            System.Console.WriteLine("I think you might have had too much rum");
+            break;
+          }
           Go(value);
           break;
         case "use":
@@ -78,7 +78,7 @@ namespace CastleGrimtol.Project
         case "upgrades":
           upgrades();
           break;
-          case "talk":
+        case "talk":
           Talk();
           break;
 
@@ -112,12 +112,14 @@ namespace CastleGrimtol.Project
       if (dead == false)
       {
         Console.Clear();
-        if (Spectacles == false && GoodSails == false) {
-        CurrentRoom = CurrentRoom.ChangeRoom(direction);
-          if (CurrentRoom is ShipRoom){
+        if (Spectacles == false && GoodSails == false)
+        {
+          CurrentRoom = CurrentRoom.ChangeRoom(direction);
+          if (CurrentRoom is ShipRoom)
+          {
             ShipRoom room = (ShipRoom)CurrentRoom;
             if (room.DoomedRoom == true)
-             {   
+            {
               System.Console.WriteLine("Captain! The waters be to rough for these patchy sails, we'll never make it!");
               System.Console.WriteLine("You and your crew have been swept away and will forever rot at the oceans floor.");
               dead = true;
@@ -125,49 +127,71 @@ namespace CastleGrimtol.Project
             }
           }
           if (CurrentRoom.DoomedRoom == true)
+          {
+            System.Console.WriteLine("Captain! The waters be to rough for these patchy sails, we'll never make it!");
+            System.Console.WriteLine("You and your crew have been swept away and will forever rot at the oceans floor.");
+            dead = true;
+            return;
+          }
+          else if (CurrentRoom.EdgeRoom == true || CurrentRoom.FogEdge == true || CurrentRoom.Name == "A2" || CurrentRoom.Name == "A3" || CurrentRoom.Name == "B2" || CurrentRoom.Name == "B3")
+          {
+            dead = true;
+          }
+        }
+        else if (Spectacles == false && GoodSails == true)
+        {
+          if (CurrentRoom.Name == "H6" && superSpeed == false)
+          {
+            System.Console.WriteLine("You foolishly attempt to flee and are instantly gunned down. The sound of Blackbeard laughing echoes in your mind as you sink further and further.");
+            dead = true;
+            return;
+          }
+          else if (CurrentRoom.Name == "H6" && superSpeed == true)
+          {
+            System.Console.WriteLine("Thanks to the high tech boat engine you swiftly escape.");
+            CurrentRoom = CurrentRoom.ChangeRoom(direction);
+          }
+          else
+          {
+            PreviousRoom = CurrentRoom;
+            CurrentRoom = CurrentRoom.ChangeRoom(direction);
+            if (CurrentRoom.LockedRoom == true)
             {
-              System.Console.WriteLine("Captain! The waters be to rough for these patchy sails, we'll never make it!");
-              System.Console.WriteLine("You and your crew have been swept away and will forever rot at the oceans floor.");
-              dead = true;
-              return;
+              CurrentRoom = PreviousRoom;
+              System.Console.WriteLine("You attempt to traverse the fog making sure the compass stays true to its direction but a few minutes pass and you find yourself right back where you were.");
             }
             else if (CurrentRoom.EdgeRoom == true || CurrentRoom.FogEdge == true || CurrentRoom.Name == "A2" || CurrentRoom.Name == "A3" || CurrentRoom.Name == "B2" || CurrentRoom.Name == "B3")
             {
-            dead = true;
-            }
-          } else if (Spectacles == false && GoodSails == true) {
-            if (CurrentRoom.Name == "H6" && superSpeed == false) {
-              System.Console.WriteLine("You foolishly attempt to flee and are instantly gunned down. The sound of Blackbeard laughing echoes in your mind as you sink further and further.");
               dead = true;
-              return;
-            } else if(CurrentRoom.Name == "H6" && superSpeed == true) {
-              System.Console.WriteLine("Thanks to the high tech boat engine you swiftly escape.");
-              CurrentRoom = CurrentRoom.ChangeRoom(direction);
-            } else {
-              PreviousRoom = CurrentRoom;
-              CurrentRoom = CurrentRoom.ChangeRoom(direction);
-              if (CurrentRoom.LockedRoom == true)
-              {
-                CurrentRoom = PreviousRoom;
-                System.Console.WriteLine("You attempt to traverse the fog making sure the compass stays true to its direction but a few minutes pass and you find yourself right back where you were.");
-              }
-            }
-          } else if (Spectacles == true) {
-            if (CurrentRoom.Name == "H6" && superSpeed == false) {
-              System.Console.WriteLine("You foolishly attempt to flee and are instantly gunned down. The sound of Blackbeard laughing echoes in your mind as you sink further and further.");
-              dead = true;
-              return;
-            } else if(CurrentRoom.Name == "H6" && superSpeed == true) {
-              System.Console.WriteLine("Thanks to the high tech boat engine you swiftly escape.");
-              CurrentRoom = CurrentRoom.ChangeRoom(direction);
-            } else {
-              CurrentRoom = CurrentRoom.ChangeRoom(direction);
             }
           }
-        if (Map == true)
+        }
+        else if (Spectacles == true)
+        {
+          if (CurrentRoom.Name == "H6" && superSpeed == false)
           {
-            System.Console.WriteLine($"Current location: {CurrentRoom.Name}");
+            System.Console.WriteLine("You foolishly attempt to flee and are instantly gunned down. The sound of Blackbeard laughing echoes in your mind as you sink further and further.");
+            dead = true;
+            return;
           }
+          else if (CurrentRoom.Name == "H6" && superSpeed == true)
+          {
+            System.Console.WriteLine("Thanks to the high tech boat engine you swiftly escape.");
+            CurrentRoom = CurrentRoom.ChangeRoom(direction);
+          }
+          else
+          {
+            CurrentRoom = CurrentRoom.ChangeRoom(direction);
+            if (CurrentRoom.EdgeRoom == true || CurrentRoom.FogEdge == true || CurrentRoom.Name == "A2" || CurrentRoom.Name == "A3" || CurrentRoom.Name == "B2" || CurrentRoom.Name == "B3")
+            {
+              dead = true;
+            }
+          }
+        }
+        if (Map == true)
+        {
+          System.Console.WriteLine($"Current location: {CurrentRoom.Name}");
+        }
         Look();
       }
       else
@@ -211,14 +235,19 @@ namespace CastleGrimtol.Project
 
       // print items in room
     }
-    public void Talk() {
-      if (CurrentRoom.Name == "F2") {
+    public void Talk()
+    {
+      if (CurrentRoom.Name == "F2")
+      {
         System.Console.WriteLine("The sound of the sirens song sooths the soul. You the coy captain are captivated by the creatures cool charm. Mesmerized by the marvelous melody your mind miraculously mellows. You and your crew have become their prey.");
         dead = true;
-      } else if (CurrentRoom.Name == "C6")
+      }
+      else if (CurrentRoom.Name == "C6")
       {
         System.Console.WriteLine("The disgusting creature opens its mouth and beings speaking. 'Hello brave sailor, I am Marty the mermaid. I'm happy to finally have the chance to speak with someone so level-headed, most folks around here seem to hate mermaids. The either avoid us or start attacking us outright. Anyway there is something we need a little help with. There are some other mermaid looking people far north east from here who have stolen something precious from us. We ask you go attack them and bring back what's ours, if its not to much trouble that is.");
-      } else {
+      }
+      else
+      {
         System.Console.WriteLine("There is nobody here...");
       }
     }
@@ -694,51 +723,52 @@ namespace CastleGrimtol.Project
     {
       //does that item exist in the CurrentRoom
       Item foundItem = CurrentRoom.Items.Find(i => i.Name.ToLower() == itemName.ToLower());
-      if (CurrentRoom is ShipRoom){
+      if (CurrentRoom is ShipRoom)
+      {
         ShipRoom room = (ShipRoom)CurrentRoom;
-      if (foundItem != null)
+        if (foundItem != null)
         {
-        if (foundItem.Name.ToLower() == "sails")
-        {
-          CurrentRoom.Items.Remove(foundItem);
-          CurrentPlayer.Inventory.Add(foundItem);
-          GoodSails = true;
-          System.Console.WriteLine("I reckon we can sail much further with these cap'n.");
-        }
-          else if (foundItem.Name == "Upgrades" && room.defeated == true )
-        {
-          Upgrades++;
-          CurrentRoom.Items.Remove(foundItem);
-          System.Console.WriteLine("You've stripped their ship and made improvements to The Drowning Whale! ");
-        }
-          else if (foundItem.Name == "flippers" && room.defeated == true) 
-        {
-          CurrentPlayer.Inventory.Add(foundItem);
-          CurrentRoom.Items.Remove(foundItem);
-          System.Console.WriteLine("You could swim a little faster with these.");
-          superSpeed = true;
-        } 
-          else if (foundItem.Name == "engine" && room.defeated == true) 
-        {
-          CurrentRoom.Items.Remove(foundItem);
-          CurrentPlayer.Inventory.Add(foundItem);
-          superSpeed = true;
-          System.Console.WriteLine("With this engine you'll be able to out run any ship in the seven seas!");
-        } 
+          if (foundItem.Name.ToLower() == "sails")
+          {
+            CurrentRoom.Items.Remove(foundItem);
+            CurrentPlayer.Inventory.Add(foundItem);
+            GoodSails = true;
+            System.Console.WriteLine("I reckon we can sail much further with these cap'n.");
+          }
+          else if (foundItem.Name == "Upgrades" && room.defeated == true)
+          {
+            Upgrades++;
+            CurrentRoom.Items.Remove(foundItem);
+            System.Console.WriteLine("You've stripped their ship and made improvements to The Drowning Whale! ");
+          }
+          else if (foundItem.Name == "flippers" && room.defeated == true)
+          {
+            CurrentPlayer.Inventory.Add(foundItem);
+            CurrentRoom.Items.Remove(foundItem);
+            System.Console.WriteLine("You could swim a little faster with these.");
+            superSpeed = true;
+          }
+          else if (foundItem.Name == "engine" && room.defeated == true)
+          {
+            CurrentRoom.Items.Remove(foundItem);
+            CurrentPlayer.Inventory.Add(foundItem);
+            superSpeed = true;
+            System.Console.WriteLine("With this engine you'll be able to out run any ship in the seven seas!");
+          }
         }
 
       }
       if (foundItem != null)
-      { 
-        System.Console.WriteLine("It be ours now Cap'n");
-        if(foundItem.Name == "Crew")
       {
+        System.Console.WriteLine("It be ours now Cap'n");
+        if (foundItem.Name == "Crew")
+        {
           addCrew();
           CurrentRoom.Items.Remove(foundItem);
           System.Console.WriteLine(@"Added 10 crew to The Drowning Whale.
           With great power comes great responsibility to find greater treasure!");
 
-      }
+        }
 
         else if (foundItem.Name == "Spectacles")
         {
@@ -768,7 +798,7 @@ namespace CastleGrimtol.Project
           CurrentRoom.Items.Remove(foundItem);
           CurrentPlayer.Inventory.Add(foundItem);
           System.Console.WriteLine("Swords for me mateys.");
-        } 
+        }
       }
       else
       {
@@ -796,10 +826,13 @@ namespace CastleGrimtol.Project
             {
               System.Console.WriteLine("Cannonballs flying and swords clashing! After a long fought battle you and your sea dogs have claimed victory! Let's celebrate victory by stripping their ship apart and upgrading ours. (take sails)");
             }
-            else if (room.Name == "F2"){
+            else if (room.Name == "F2")
+            {
               System.Console.WriteLine("Seeing through their trick you order your order crew to immediately sends cannonballs flying. The surprise attack catching most of the sirens off guard leading to an easy victory. As your crew celebrates you see a small barrell float to the surface, inside it contains rubber flippers for swimming. (take flippers)");
               room.defeated = true;
-            } else if (room.Name == "C6") {
+            }
+            else if (room.Name == "C6")
+            {
               System.Console.WriteLine("On your order cannonballs begin to fly. The hideous mermaids miraculously dodge them, perhaps they're used to this? Before you have time to think any more they start chomping on your ship ripping sizeable chunks out with each bite. The Drowning Whale begins to drown leaving you and your crew to be nothing more than fish food.");
               dead = true;
             }
