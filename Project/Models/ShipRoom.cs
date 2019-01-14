@@ -10,12 +10,13 @@ namespace CastleGrimtol.Project.Models
     public List<Item> Items { get; set; }
     public Dictionary<string, IRoom> Exits { get; set; }
     public int CrewToWin { get; set; }
+    public int UpragesToWin { get; set; }
     public bool LockedRoom { get; set; }
     public bool DoomedRoom { get; set; }
     public bool EdgeRoom { get; set; }
     public bool FogEdge { get; set; }
 
-    public ShipRoom(string name, string description, int requiredCrew, bool lockedroom = false, bool doomedRoom = false)
+    public ShipRoom(string name, string description, int requiredCrew, int requiredUpgrades, bool lockedroom = false, bool doomedRoom = false)
     {
       Name = name;
       Description = description;
@@ -23,6 +24,7 @@ namespace CastleGrimtol.Project.Models
       Items = new List<Item>();
       Exits = new Dictionary<string, IRoom>();
       CrewToWin = requiredCrew;
+      UpragesToWin = requiredUpgrades;
     }
 
     public IRoom ChangeRoom(string direction)
