@@ -51,9 +51,6 @@ namespace CastleGrimtol.Project
         case "search":
           searchThing(value);
           break;
-        case "add":
-          addCrew();
-          break;
         case "crew":
           crew();
           break;
@@ -190,7 +187,7 @@ namespace CastleGrimtol.Project
       Room E7 = new Room("E7", $"{empty} You see a ship to the West with a ragged looking green skull on it's sails.  To the South you see a small island, {openSea} North and East.");
       Room F8 = new Room("F8", $"{empty} To the South {edge} To the West {island}, {openSea} to the North and East.");
       Room F6 = new Room("F6", $"You see a barrell floating in the ocean, inside are weapons for your crew! Would you like to take the weapons? To the East {island}. {OpenSea} North, West, and South.");
-      Room D7 = new Room("D7", $"You come face to face with the infamous Flying Dutchmen!  This ghostly crew doesnt look to happy to see you. To the West the water {rough}. {OpenSea} North, East and South.");
+      ShipRoom D7 = new ShipRoom("D7", $"You come face to face with the infamous Flying Dutchmen!  This ghostly crew doesnt look to happy to see you. To the West the water {rough}. {OpenSea} North, East and South.", 50);
       Room D8 = new Room("D8", $"{empty} You see a ship to the North with a ragged looking green skull on it's sails.  To the East {island}.  The water to the West {rough}. When you look South {edge}");
       Room E8 = new Room("E8", $"{onIsland} {OpenSea} North, East, and West.  When you look South {edge}");
       Room G8 = new Room("G8", $"{empty} To the East the water {rough}. {OpenSea} North and West. When you look South {edge}");
@@ -209,10 +206,10 @@ namespace CastleGrimtol.Project
       Room B7 = new Room("B7", $"{onIsland} A faint glimmer catches your eye toward the South. {OpenSea} North, East, and West.");
       Room C7 = new Room("C7", $"{empty} To the East {rough2} Toward the West {island}. Looking North you see bizarre creatures bobbing at the water. {OpenSea} South", false, true);
       Room H7 = new Room("H7", $"{onIsland} A massive warship looms North, its sails are black with a laughing Jolly Roger. Etched on its side you read the words 'Queen Anne's Revenge'. The sheer sight of it fills you with dread. To the West {rough2} {OpenSea} South and looking East {edge}", false, true);
-      Room A6 = new Room("A6", $"You have made contact with pirate ship Happy Delivery. Its captain George Lowther appears to want nothing more than to sink your vessel and plunder anything that remains. To the North {island} and {openSea} East and South. Over West {edge}");
+      ShipRoom A6 = new ShipRoom("A6", $"You have made contact with pirate ship Happy Delivery. Its captain George Lowther appears to want nothing more than to sink your vessel and plunder anything that remains. To the North {island} and {openSea} East and South. Over West {edge}", 60);
       Room B6 = new Room("B6", $"{empty} You can faintly see a pirate ship over West. Upon closer inspection it the sails appear to be yellow with a smiling Jolly Roger. Down South {island}. Looking East you see bizarre creatures bobbing at the water and {openSea} North.");
       Room C6 = new Room("C6", $"You encounter some of the most grotesque creatures you've ever seen. From the waist down their body appears to be human and above the waist is fish. The inefficient design of their bodies is making it difficult for them to swim but as you see the mouth of one open you notice multipe rows of razor sharp teeth. To the East {rough2} {OpenSea} North, South, and West.", false, true);
-      Room H6 = new Room("H6", $"You are now face to face with The Queen Anne's Revenge. Captained by the fearsome pirate Edward Teach this monstrous vessel knows no defeat. Outfitted with 40 cannons all pointing towards The Drowning Whale, you know escape is to late. You must fight if you want any chance of survival no matter how slim. To the East {edge} Perhaps sailing toward it would be a more merciful death...", false, true);
+      ShipRoom H6 = new ShipRoom("H6", $"You are now face to face with The Queen Anne's Revenge. Captained by the fearsome pirate Edward Teach this monstrous vessel knows no defeat. Outfitted with 40 cannons all pointing towards The Drowning Whale, you know escape is to late. You must fight if you want any chance of survival no matter how slim. To the East {edge} Perhaps sailing toward it would be a more merciful death...", 100, false, true);
       Room A5 = new Room("A5", $"{onIsland} To the North {fog} You can faintly see a pirate ship down South. Upon closer inspection it the sails appear to be yellow with a smiling Jolly Roger. {OpenSea} East. Looking West {edge}");
       Room B5 = new Room("B5", $"{empty} To the North {fog} Looking West {island} and {openSea} East and South.");
       Room C5 = new Room("C5", $"{empty} To the North {fog} Looking South you see bizarre creatures bobbing at the water. Towards the East {rough2} {OpenSea} West.", false, true);
@@ -223,13 +220,13 @@ namespace CastleGrimtol.Project
       Room D4 = new Room("D4", $"{empty} To the West {fog} Down South {rough2} {OpenSea} North and East.", false, true);
       Room E4 = new Room("E4", $"{empty} In the distance North you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. To the South {rough2} {OpenSea} East and West.", false, true);
       Room F4 = new Room("F4", $"To the East you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. To the South {rough2} {OpenSea} North and West.", false, true);
-      Room G4 = new Room("G4", $"The ship you have sailed upon is none other than Captain Bartholomew Roberts' Royal Fortune. Captain Bartholomew Roberts is known for his ruthless plundering and is looking at your ship with hungry eyes. To the East {island} and to the South {rough2} {OpenSea} North and West.", false, true);
+      ShipRoom G4 = new ShipRoom("G4", $"The ship you have sailed upon is none other than Captain Bartholomew Roberts' Royal Fortune. Captain Bartholomew Roberts is known for his ruthless plundering and is looking at your ship with hungry eyes. To the East {island} and to the South {rough2} {OpenSea} North and West.", 70, false, true);
       Room H4 = new Room("H4", $"{onIsland} To the West you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. {OpenSea} North and South. Over East {edge}");
       Room A3 = new Room("A3", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
       Room B3 = new Room("B3", "The sky darkens and thunder roars around you. Some members of your crew are seen mumbling to themselves while others are screaming at eachother. A rogue wave hits your ship and a few people go flying overboard. Through the surrounding chaos a shadow blocks the sun. As you look up you see a giant tentacle towering accross the sky and following it back leads you to a enormous body bigger than some islands. As you glance back up the tentacle comes crashing down right into your vessel. Everything is black. The Kraken has claimed your life.");
-      Room C3 = new Room("C3", $"{inFog} Through the thick fog you notice a small island is right next to you with what looks like someone waving at you.", true);
+      Room C3 = new Room("C3", $"{inFog} Through the thick fog you notice a small island is right next to you with what looks like someone waving at you. Would you like to add them to the crew? Yes / No", true);
       Room D3 = new Room("D3", $"{empty} In the distance East you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. To the West {fog} {OpenSea} North and South");
-      Room E3 = new Room("E3", $"You've sailed upon the pirate ship Fancy! Its Captain Henry Avery loves the finer things in life and while The Drowning Whale is nothing to brag about you and your crew would fetch a nice price as slaves. You are surrounded by open sea.");
+      ShipRoom E3 = new ShipRoom("E3", $"You've sailed upon the pirate ship Fancy! Its Captain Henry Avery loves the finer things in life and while The Drowning Whale is nothing to brag about you and your crew would fetch a nice price as slaves. You are surrounded by open sea.", 60);
       Room F3 = new Room("F3", $"{empty} To the North you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. In the distance West you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. {OpenSea} East and South.");
       Room G3 = new Room("G3", $"{empty} To the South you see a formidable pirate ship with orange sails. The skull on its sails is wearing a crown with gold piled high in the background. {OpenSea} North, East, and West.");
       Room H3 = new Room("H3", $"{empty} A sinister looking pirate ship suddenly appears to the North. Its red sails and scowling Roger send shivers down your spine. To the South {island} and {openSea} West. Looking East {edge}");
@@ -240,7 +237,7 @@ namespace CastleGrimtol.Project
       Room E2 = new Room("E2", $"{empty} To the East you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. In the distance South you see a pirate ship with yellow sails. The skull on the sail is wearing a monocle and instead of crossbones it has crossing silverware. {OpenSea} North and West.");
       Room F2 = new Room("F2", $"You have sailed upon some enchanting creatures and as you draw near they begin swimming towards your ship. You gaze wonderously at these elegant beings, their upper body a beautiful woman and lower a fish-like tail. Nothing but openseas surrounds you.");
       Room G2 = new Room("G2", $"{empty} A sinister looking pirate ship suddenly appears to the East. Its red sails and scowling Roger send shivers down your spine. To the West you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. To the North you see a lonesome barrell floating in the water. {OpenSea} South.");
-      Room H2 = new Room("H2", $"You've decided to sail straight towards the Adventure Galley and as Captain Kidd stares you down you begin to think this might be a bad idea. Very few people have the chance to meet Captain Kidd and even fewer make it out alive. {OpenSea} North, South, and West. Looking East {edge}");
+      ShipRoom H2 = new ShipRoom("H2", $"You've decided to sail straight towards the Adventure Galley and as Captain Kidd stares you down you begin to think this might be a bad idea. Very few people have the chance to meet Captain Kidd and even fewer make it out alive. {OpenSea} North, South, and West. Looking East {edge}", 80);
       Room A1 = new Room("A1", $"While sailing through the thick fog you almost run directly into an island that shot up out of no where. There looks to be some crates on the island. You crack open a crate and find none other than Hollow Point Cannonballs!");
       Room B1 = new Room("B1", $"{inFog}");
       Room C1 = new Room("C1", $"{inFog}", true);
@@ -557,7 +554,7 @@ namespace CastleGrimtol.Project
       #endregion
 
       //add items to rooms
-
+      #region //items
       Item GoodSails = new Item("Sails", "Adding these to our ship cap'n");
       Item Spectacles = new Item("Spectacles", "some sort of glass thing, when you hold them up things look clearer. Could sail through any waters with these no matter how drunk!");
       Item Crew1 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
@@ -578,9 +575,10 @@ namespace CastleGrimtol.Project
       H4.Items.Add(Crew1);
       C3.Items.Add(Crew1);
       E8.Items.Add(Crew1);
+      D1.Items.Add(Crew1);
       D7.Items.Add(GoodSails);
       G1.Items.Add(Spectacles);
-
+      #endregion
 
 
 
@@ -611,18 +609,26 @@ namespace CastleGrimtol.Project
       if (foundItem != null)
       {
         System.Console.WriteLine("It be ours now Cap'n");
-        CurrentPlayer.Inventory.Add(foundItem);
-        CurrentRoom.Items.Remove(foundItem);
         if (foundItem.Name.ToLower() == "sails")
         {
+          CurrentPlayer.Inventory.Add(foundItem);
+          CurrentRoom.Items.Remove(foundItem);
           GoodSails = true;
           System.Console.WriteLine("I reckon we can sail much further with these cap'n.");
         }
-        if (foundItem.Name == "Spectacles")
+        else if (foundItem.Name == "Spectacles")
         {
+          CurrentPlayer.Inventory.Add(foundItem);
+          CurrentRoom.Items.Remove(foundItem);
           Spectacles = true;
           System.Console.WriteLine("some sort of glass thing, when you hold them up things look clearer. Could sail through any waters with these no matter how drunk!");
-
+        }
+        else if (foundItem.Name == "Crew")
+        {
+          addCrew();
+          CurrentRoom.Items.Remove(foundItem);
+          System.Console.WriteLine(@"Added 10 members to crew.
+          With great power comes great responsibility to find greater treasure!");
         }
       }
       else

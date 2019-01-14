@@ -15,13 +15,14 @@ namespace CastleGrimtol.Project.Models
     public bool EdgeRoom { get; set; }
     public bool FogEdge { get; set; }
 
-    public ShipRoom(string name, string description, bool lockedroom = false, bool doomedRoom = false)
+    public ShipRoom(string name, string description, int requiredCrew, bool lockedroom = false, bool doomedRoom = false)
     {
       Name = name;
       Description = description;
       LockedRoom = lockedroom;
       Items = new List<Item>();
       Exits = new Dictionary<string, IRoom>();
+      CrewToWin = requiredCrew;
     }
 
     public IRoom ChangeRoom(string direction)
