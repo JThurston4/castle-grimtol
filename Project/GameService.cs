@@ -16,6 +16,7 @@ namespace CastleGrimtol.Project
     public bool GoodSails { get; set; } = false;
     public bool Spectacles { get; set; } = false;
     public bool Map { get; set; } = false;
+    public bool Weapons { get; set; } = false;
     public bool dead { get; set; } = false;
 
     public int Crew { get; set; }
@@ -596,6 +597,7 @@ namespace CastleGrimtol.Project
       Item Upgrades4 = new Item("Upgrades", "Improve your ship!");
       Item HollowPoints = new Item("Cannonballs", "How do these even exist");
       Item Map = new Item("Map", "A map to help guide you.");
+      Item Weapons = new Item("Weapons", "Swords for me mateys");
 
       G6.Items.Add(Crew1);
       D5.Items.Add(Crew1);
@@ -612,6 +614,7 @@ namespace CastleGrimtol.Project
       G4.Items.Add(Upgrades2);
       E3.Items.Add(Upgrades3);
       H2.Items.Add(Upgrades4);
+      F6.Items.Add(Weapons);
       B8.Items.Add(Map);
       #endregion
 
@@ -683,6 +686,12 @@ namespace CastleGrimtol.Project
           CurrentRoom.Items.Remove(foundItem);
           System.Console.WriteLine("A map to help guide your way.");
         }
+        else if (foundItem.Name == "Weapons")
+        {
+          Weapons = true;
+          CurrentRoom.Items.Remove(foundItem);
+          System.Console.WriteLine("Swords for me mateys.");
+        }
       }
       else
       {
@@ -702,20 +711,29 @@ namespace CastleGrimtol.Project
       if (CurrentRoom is ShipRoom)
       {
         ShipRoom room = (ShipRoom)CurrentRoom;
-        if (Crew >= room.CrewToWin && Upgrades >= room.UpragesToWin && room.Name != "H6" || Winnable == true)
+        if (Weapons == true)
         {
-          if (room.Name == "D7")
+
+          if (Crew >= room.CrewToWin && Upgrades >= room.UpragesToWin && room.Name != "H6" || Winnable == true)
           {
-            System.Console.WriteLine("Cannonballs flying and swords clashing! After a long fought battle you and your sea dogs have claimed victory! Let's celebrate victory by stripping their ship apart and upgrading ours. (take sails)");
+            if (room.Name == "D7")
+            {
+              System.Console.WriteLine("Cannonballs flying and swords clashing! After a long fought battle you and your sea dogs have claimed victory! Let's celebrate victory by stripping their ship apart and upgrading ours. (take sails)");
+            }
+            else
+            {
+              System.Console.WriteLine("Cannonballs flying and swords clashing! After a long fought battle you and your sea dogs have claimed victory! Let's celebrate victory by stripping their ship apart and upgrading ours. (take upgrades)");
+            }
+          }
+          else if (Crew >= room.CrewToWin && Upgrades >= room.UpragesToWin && Winnable == true && room.Name == "H6")
+          {
+            System.Console.WriteLine("You've conquered all the seas and are now King of the Pirates!");
           }
           else
           {
-            System.Console.WriteLine("Cannonballs flying and swords clashing! After a long fought battle you and your sea dogs have claimed victory! Let's celebrate victory by stripping their ship apart and upgrading ours. (take upgrades)");
+            System.Console.WriteLine("The long battle has proven to much for you and your make shift crew, the enemy overwhelms you. Time to walk the plank.");
+            dead = true;
           }
-        }
-        else if (Crew >= room.CrewToWin && Upgrades >= room.UpragesToWin && Winnable == true && room.Name == "H6")
-        {
-          System.Console.WriteLine("You've conquered all the seas and are now King of the Pirates!");
         }
         else
         {
