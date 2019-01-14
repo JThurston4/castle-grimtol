@@ -11,6 +11,9 @@ namespace CastleGrimtol.Project.Interfaces
     Dictionary<string, IRoom> Exits { get; set; }
     bool LockedRoom { get; set; }
     bool DoomedRoom { get; set; }
+    bool EdgeRoom { get; set; }
+    bool FogEdge { get; set; }
+
 
     IRoom ChangeRoom(string direction);
   }

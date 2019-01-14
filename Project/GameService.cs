@@ -9,6 +9,7 @@ namespace CastleGrimtol.Project
   {
 
     public IRoom CurrentRoom { get; set; }
+    public IRoom PreviousRoom { get; set; }
     public Player CurrentPlayer { get; set; }
     public bool playing { get; private set; }
 
@@ -17,6 +18,7 @@ namespace CastleGrimtol.Project
     public bool dead { get; set; } = false;
 
     public int Crew { get; set; }
+    public int Upgrades { get; set; }
 
     public void GetUserInput()
     {
@@ -61,6 +63,9 @@ namespace CastleGrimtol.Project
         case "help":
           Help();
           break;
+        case "reset":
+          Reset();
+          break;
 
         default:
           System.Console.WriteLine("I think you might have had too much rum");
@@ -78,13 +83,29 @@ namespace CastleGrimtol.Project
     {
       Crew += 10;
     }
+    private void addUpgrades()
+    {
+      Upgrades++;
+    }
 
     public void Go(string direction)
     {
       if (dead == false)
       {
-
         Console.Clear();
+        if (Spectacles == true) { }
+        else if (GoodSails == true)
+        {
+          PreviousRoom = CurrentRoom;
+          CurrentRoom = CurrentRoom.ChangeRoom(direction);
+          if (CurrentRoom.LockedRoom == true)
+          {
+            CurrentRoom = PreviousRoom;
+            System.Console.WriteLine("You attempt to traverse the fog making sure the compass stays true to its direction but a few minutes pass and you find yourself right back where you were.");
+          }
+          Look();
+          return;
+        }
         CurrentRoom = CurrentRoom.ChangeRoom(direction);
         if (CurrentRoom.DoomedRoom == true)
         {
@@ -92,6 +113,10 @@ namespace CastleGrimtol.Project
           System.Console.WriteLine("You and your crew have been swept away and will forever rot at the oceans floor.");
           dead = true;
           return;
+        }
+        else if (CurrentRoom.EdgeRoom == true || CurrentRoom.FogEdge == true || CurrentRoom.Name == "A2" || CurrentRoom.Name == "A3" || CurrentRoom.Name == "B2" || CurrentRoom.Name == "B3")
+        {
+          dead = true;
         }
         Look();
       }
@@ -146,6 +171,7 @@ namespace CastleGrimtol.Project
     public void Setup()
     {
       Crew = 30;
+      Upgrades = 0;
       // if (CurrentRoom)
       #region //Create rooms
       string empty = "The water seems calm, not much here.";
@@ -154,7 +180,7 @@ namespace CastleGrimtol.Project
       string openSea = "nothing but open seas to the";
       string OpenSea = "Nothing but open seas to the";
       string island = "you see a small island";
-      string onIsland = "You sail up to a small island, there appears to be people on the island waving as you draw near. Would you like to add them to the crew?";
+      string onIsland = "You sail up to a small island, there appears to be people on the island waving as you draw near. Would you like to add them to the crew? Yes / No";
       string edge = "the water drops straight down with nothing but open air beyond.  This appears to be the edge of the world.";
       string fog = "an ominous fog blocks your view.";
       string inFog = "You have sailed into the thick fog and lost all visibility. In the distance the sound of lightning cracks through the air. The waters are shifting rapidly and your crew looks nervous. You hear a few of them whisper among themselves 'surely there is nothing worth the risk of these waters'.";
@@ -189,7 +215,7 @@ namespace CastleGrimtol.Project
       Room H6 = new Room("H6", $"You are now face to face with The Queen Anne's Revenge. Captained by the fearsome pirate Edward Teach this monstrous vessel knows no defeat. Outfitted with 40 cannons all pointing towards The Drowning Whale, you know escape is to late. You must fight if you want any chance of survival no matter how slim. To the East {edge} Perhaps sailing toward it would be a more merciful death...", false, true);
       Room A5 = new Room("A5", $"{onIsland} To the North {fog} You can faintly see a pirate ship down South. Upon closer inspection it the sails appear to be yellow with a smiling Jolly Roger. {OpenSea} East. Looking West {edge}");
       Room B5 = new Room("B5", $"{empty} To the North {fog} Looking West {island} and {openSea} East and South.");
-      Room C5 = new Room("C5", $"{empty} Looking South you see bizarre creatures bobbing at the water. Towards the East {rough2} {OpenSea} North and West.", false, true);
+      Room C5 = new Room("C5", $"{empty} To the North {fog} Looking South you see bizarre creatures bobbing at the water. Towards the East {rough2} {OpenSea} West.", false, true);
       Room H5 = new Room("H5", $"{empty} A massive warship looms South, its sails are black with a laughing Jolly Roger. Etched on its side you read the words 'Queen Anne's Revenge'. The sheer sight of it fills you with dread. To the North {island}. Towards the West {rough2} Looking East {edge}", false, true);
       Room A4 = new Room("A4", $"{inFog}", true);
       Room B4 = new Room("B4", $"{inFog}", true); ;
@@ -223,8 +249,8 @@ namespace CastleGrimtol.Project
       Room F1 = new Room("F1", $"{empty} To the South you spot some beautiful creatures jumping through the water. They take notice and appear to be waving in your direction. To the East you see a lonesome barrell floating in the water. {OpenSea} West and up North {edge}");
       Room G1 = new Room("G1", $"You've come upon a barrell floating at sea, inside are some strange spectacles. {OpenSea} East, West, and South. Up north {edge}");
       Room H1 = new Room("H1", $"{empty} A sinister looking pirate ship suddenly appears to the South. Its red sails and scowling Roger send shivers down your spine. To the West you see a lonesome barrell floating in the water. To the North and East {edge}");
-      Room Edge1 = new Room("Edge1", "You decide to test your curiousity and sail full speed where the water drops. As you clear the steep angle your ship loses all control and gets hurdled downward. You quickly grab a nearby rope temporarily securing you to The Drowning Whale. Looking around you see members of your crew flying through the air, some screaming and others silent. Glancing up and find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.", false, true);
-      Room Edge2 = new Room("Edge2", "You continue to sail through the blinding fog hoping to find some long lost treasure when suddenly you see a few members of your crew floating through the air, what an odd sight! Instantly the fog clears and the realization dawns that through your foolhardiness you've sailed past the edge of the world. Glancing up and find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.", false, true);
+      Room Edge1 = new Room("Edge1", "You decide to test your curiousity and sail full speed where the water drops. As you clear the steep angle your ship loses all control and gets hurdled downward. You quickly grab a nearby rope temporarily securing you to The Drowning Whale. Looking around you see members of your crew flying through the air, some screaming and others silent. Glancing up you find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.", false, false, true);
+      Room Edge2 = new Room("Edge2", "You continue to sail through the blinding fog hoping to find some long lost treasure when suddenly you see a few members of your crew floating through the air, what an odd sight! Instantly the fog clears and the realization dawns that through your foolhardiness you've sailed past the edge of the world. Glancing up you find an island floating in the sky. Your mind can't seem to comprehend what is happening but after what seems like an enternity the sounds surrounding you become quiet and your mind achieves an inner calm. You resign to your fate as you forever continue your descent into the abyss.", false, false, false, true);
       #endregion
       //creating exits
       //Row 8   
@@ -534,9 +560,25 @@ namespace CastleGrimtol.Project
 
       Item GoodSails = new Item("Sails", "Adding these to our ship cap'n");
       Item Spectacles = new Item("Spectacles", "some sort of glass thing, when you hold them up things look clearer. Could sail through any waters with these no matter how drunk!");
+      Item Crew1 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
+      Item Crew2 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
+      Item Crew3 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
+      Item Crew4 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
+      Item Crew5 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
+      Item Crew6 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
+      Item Crew7 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
+      Item Crew8 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
+      Item Crew9 = new Item("Crew", "More filthy mouths to feed and more power you wield.");
 
-
-      A4.Items.Add(GoodSails);
+      G6.Items.Add(Crew1);
+      D5.Items.Add(Crew1);
+      B7.Items.Add(Crew1);
+      H7.Items.Add(Crew1);
+      A5.Items.Add(Crew1);
+      H4.Items.Add(Crew1);
+      C3.Items.Add(Crew1);
+      E8.Items.Add(Crew1);
+      D7.Items.Add(GoodSails);
       G1.Items.Add(Spectacles);
 
 
@@ -571,7 +613,7 @@ namespace CastleGrimtol.Project
         System.Console.WriteLine("It be ours now Cap'n");
         CurrentPlayer.Inventory.Add(foundItem);
         CurrentRoom.Items.Remove(foundItem);
-        if (foundItem.Name == "GoodSails")
+        if (foundItem.Name.ToLower() == "sails")
         {
           GoodSails = true;
           System.Console.WriteLine("I reckon we can sail much further with these cap'n.");

@@ -11,12 +11,17 @@ namespace CastleGrimtol.Project.Models
     public Dictionary<string, IRoom> Exits { get; set; }
     public bool LockedRoom { get; set; }
     public bool DoomedRoom { get; set; }
-    public Room(string name, string description, bool lockedroom = false, bool doomedroom = false)
+    public bool EdgeRoom { get; set; }
+    public bool FogEdge { get; set; }
+
+    public Room(string name, string description, bool lockedroom = false, bool doomedroom = false, bool edge = false, bool fogEdge = false)
     {
       Name = name;
       Description = description;
       LockedRoom = lockedroom;
       DoomedRoom = doomedroom;
+      EdgeRoom = edge;
+      FogEdge = fogEdge;
       Items = new List<Item>();
       Exits = new Dictionary<string, IRoom>();
     }
@@ -24,20 +29,9 @@ namespace CastleGrimtol.Project.Models
     public IRoom ChangeRoom(string direction)
     {
       IRoom room = Exits[direction];
-      if (Exits.ContainsKey(direction) && room.LockedRoom == true)
-      {
-        System.Console.WriteLine("cant enter");
-        return this;
-      }
-      // else if (Exits.ContainsKey(direction) && room.DoomedRoom == true)
-      // {
-      //   System.Console.WriteLine("cant enter");
-      //   return this;
-      // }
-      else
-      {
-        return Exits[direction];
-      }
+
+      return Exits[direction];
+
     }
   }
 }

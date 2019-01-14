@@ -12,7 +12,8 @@ namespace CastleGrimtol.Project.Models
     public int CrewToWin { get; set; }
     public bool LockedRoom { get; set; }
     public bool DoomedRoom { get; set; }
-
+    public bool EdgeRoom { get; set; }
+    public bool FogEdge { get; set; }
 
     public ShipRoom(string name, string description, bool lockedroom = false, bool doomedRoom = false)
     {
