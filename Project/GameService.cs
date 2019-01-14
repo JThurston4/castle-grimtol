@@ -15,6 +15,7 @@ namespace CastleGrimtol.Project
 
     public bool GoodSails { get; set; } = false;
     public bool Spectacles { get; set; } = false;
+    public bool Map { get; set; } = false;
     public bool dead { get; set; } = false;
 
     public int Crew { get; set; }
@@ -111,6 +112,10 @@ namespace CastleGrimtol.Project
             CurrentRoom = PreviousRoom;
             System.Console.WriteLine("You attempt to traverse the fog making sure the compass stays true to its direction but a few minutes pass and you find yourself right back where you were.");
           }
+          if (Map == true)
+          {
+            System.Console.WriteLine($"Current location: {CurrentRoom.Name}");
+          }
           Look();
           return;
         }
@@ -125,6 +130,10 @@ namespace CastleGrimtol.Project
         else if (CurrentRoom.EdgeRoom == true || CurrentRoom.FogEdge == true || CurrentRoom.Name == "A2" || CurrentRoom.Name == "A3" || CurrentRoom.Name == "B2" || CurrentRoom.Name == "B3")
         {
           dead = true;
+        }
+        if (Map == true)
+        {
+          System.Console.WriteLine($"Current location: {CurrentRoom.Name}");
         }
         Look();
       }
@@ -586,6 +595,7 @@ namespace CastleGrimtol.Project
       Item Upgrades3 = new Item("Upgrades", "Improve your ship!");
       Item Upgrades4 = new Item("Upgrades", "Improve your ship!");
       Item HollowPoints = new Item("Cannonballs", "How do these even exist");
+      Item Map = new Item("Map", "A map to help guide you.");
 
       G6.Items.Add(Crew1);
       D5.Items.Add(Crew1);
@@ -602,6 +612,7 @@ namespace CastleGrimtol.Project
       G4.Items.Add(Upgrades2);
       E3.Items.Add(Upgrades3);
       H2.Items.Add(Upgrades4);
+      B8.Items.Add(Map);
       #endregion
 
 
@@ -665,6 +676,12 @@ namespace CastleGrimtol.Project
           Winnable = true;
           CurrentRoom.Items.Remove(foundItem);
           System.Console.WriteLine("Hollowpoint Cannonballs?! Who even knew such a thing existed! With these surely there is no one who can stand in our way.");
+        }
+        else if (foundItem.Name == "Map")
+        {
+          Map = true;
+          CurrentRoom.Items.Remove(foundItem);
+          System.Console.WriteLine("A map to help guide your way.");
         }
       }
       else
