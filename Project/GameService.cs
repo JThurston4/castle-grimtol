@@ -182,7 +182,7 @@ namespace CastleGrimtol.Project
       string openSea = "nothing but open seas to the";
       string OpenSea = "Nothing but open seas to the";
       string island = "you see a small island";
-      string onIsland = "You sail up to a small island, there appears to be people on the island waving as you draw near. Would you like to add them to the crew? Yes / No";
+      string onIsland = "You sail up to a small island, there appears to be people on the island who wave as you draw near. Can always use more hands to swab the deck (take crew)";
       string edge = "the water drops straight down with nothing but open air beyond.  This appears to be the edge of the world.";
       string fog = "an ominous fog blocks your view.";
       string inFog = "You have sailed into the thick fog and lost all visibility. In the distance the sound of lightning cracks through the air. The waters are shifting rapidly and your crew looks nervous. You hear a few of them whisper among themselves 'surely there is nothing worth the risk of these waters'.";
